@@ -62,11 +62,7 @@ class Attachment extends PureComponent {
   }
 
   renderAttachmentActions = (a) => (
-    <AttachmentActions
-      key={'key-actions-' + a.id}
-      {...a}
-      actionHandler={this.props.actionHandler}
-    />
+    <AttachmentActions key={'key-actions-' + a.id} {...a} actionHandler={this.props.actionHandler} />
   );
 
   renderAttachment = (a) => (
@@ -101,16 +97,8 @@ class Attachment extends PureComponent {
     } else if (type === 'file') {
       a.asset_url &&
         results.push(
-          <div
-            className="str-chat__message-attachment-file--item"
-            key={`key-file-${a.id}`}
-          >
-            <FileIcon
-              mimeType={a.mime_type}
-              filename={a.title}
-              big={true}
-              size={30}
-            />
+          <div className="str-chat__message-attachment-file--item" key={`key-file-${a.id}`}>
+            <FileIcon mimeType={a.mime_type} filename={a.title} big={true} size={30} />
             <div className="str-chat__message-attachment-file--item-text">
               <SafeAnchor href={a.asset_url} target="_blank" download>
                 {a.title}
@@ -130,13 +118,7 @@ class Attachment extends PureComponent {
         results.push(
           <div className="str-chat__attachment" key={`key-video-${a.id}`}>
             <div className="str-chat__player-wrapper">
-              <ReactPlayer
-                className="react-player"
-                url={a.asset_url}
-                width="100%"
-                height="100%"
-                controls
-              />
+              <ReactPlayer className="react-player" url={a.asset_url} width="100%" height="100%" controls />
             </div>
             {this.renderAttachmentActions(a)}
           </div>,
@@ -144,13 +126,7 @@ class Attachment extends PureComponent {
       } else {
         results.push(
           <div className="str-chat__player-wrapper" key={`key-video-${a.id}`}>
-            <ReactPlayer
-              className="react-player"
-              url={a.asset_url}
-              width="100%"
-              height="100%"
-              controls
-            />
+            <ReactPlayer className="react-player" url={a.asset_url} width="100%" height="100%" controls />
           </div>,
         );
       }
@@ -167,8 +143,7 @@ class Attachment extends PureComponent {
     return (
       <div
         className={`str-chat__message-attachment str-chat__message-attachment--${type} str-chat__message-attachment--${a.type} str-chat__message-attachment--${type}--${extra}`}
-        ref={this.attachmentRef}
-      >
+        ref={this.attachmentRef}>
         {results}
       </div>
     );

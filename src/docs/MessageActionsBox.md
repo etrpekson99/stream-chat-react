@@ -9,12 +9,7 @@ import { MessageActionsBox } from '../components';
 const data = require('./data');
 
 <div style={{ position: 'relative' }}>
-  <MessageActionsBox
-    open={false}
-    Message={data.MessageMock}
-    getMessageActions={() => []}
-    message={data.message}
-  />
+  <MessageActionsBox open={false} Message={data.MessageMock} getMessageActions={() => []} message={data.message} />
 </div>;
 ```
 
@@ -26,11 +21,6 @@ import { MessageActionsBox } from '../components';
 const data = require('./data');
 
 <div style={{ position: 'relative' }}>
-  <MessageActionsBox
-    open={true}
-    Message={data.MessageMock}
-    getMessageActions={() => []}
-    message={data.message}
-  />
+  <MessageActionsBox open={true} Message={data.MessageMock} getMessageActions={() => []} message={data.message} />
 </div>;
 ```

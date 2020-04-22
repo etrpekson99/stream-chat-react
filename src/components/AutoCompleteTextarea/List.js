@@ -116,12 +116,8 @@ export class List extends React.Component {
         break;
     }
 
-    newPosition =
-      ((newPosition % values.length) + values.length) % values.length; // eslint-disable-line
-    this.selectItem(
-      values[newPosition],
-      [KEY_CODES.DOWN, KEY_CODES.UP].includes(code),
-    );
+    newPosition = ((newPosition % values.length) + values.length) % values.length; // eslint-disable-line
+    this.selectItem(values[newPosition], [KEY_CODES.DOWN, KEY_CODES.UP].includes(code));
   };
 
   isSelected = (item) => {
@@ -146,14 +142,7 @@ export class List extends React.Component {
   };
 
   render() {
-    const {
-      values,
-      component,
-      style,
-      itemClassName,
-      className,
-      itemStyle,
-    } = this.props;
+    const { values, component, style, itemClassName, className, itemStyle } = this.props;
 
     return (
       <ul className={`rta__list ${className || ''}`} style={style}>

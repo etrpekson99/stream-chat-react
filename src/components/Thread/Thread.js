@@ -130,11 +130,7 @@ class ThreadInner extends React.PureComponent {
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
     const parentID = this.props.thread.id;
-    if (
-      parentID &&
-      this.props.thread.reply_count > 0 &&
-      this.props.threadMessages.length === 0
-    ) {
+    if (parentID && this.props.thread.reply_count > 0 && this.props.threadMessages.length === 0) {
       await this.props.loadMoreThread();
     }
 
@@ -161,11 +157,7 @@ class ThreadInner extends React.PureComponent {
     const { t } = this.props;
     const read = {};
     return (
-      <div
-        className={`str-chat__thread ${
-          this.props.fullWidth ? 'str-chat__thread--full' : ''
-        }`}
-      >
+      <div className={`str-chat__thread ${this.props.fullWidth ? 'str-chat__thread--full' : ''}`}>
         <div className="str-chat__thread-header">
           <div className="str-chat__thread-header-details">
             <strong>{t('Thread')}</strong>
@@ -176,10 +168,7 @@ class ThreadInner extends React.PureComponent {
               })}
             </small>
           </div>
-          <button
-            onClick={(e) => this.props.closeThread(e)}
-            className="str-chat__square-button"
-          >
+          <button onClick={(e) => this.props.closeThread(e)} className="str-chat__square-button">
             <svg width="10" height="10" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M9.916 1.027L8.973.084 5 4.058 1.027.084l-.943.943L4.058 5 .084 8.973l.943.943L5 5.942l3.973 3.974.943-.943L5.942 5z"
@@ -198,9 +187,7 @@ class ThreadInner extends React.PureComponent {
             {...this.props}
             {...this.props.additionalParentMessageProps}
           />
-          <div className="str-chat__thread-start">
-            {t('Start of a new thread')}
-          </div>
+          <div className="str-chat__thread-start">{t('Start of a new thread')}</div>
           <MessageList
             messages={this.props.threadMessages}
             read={read}

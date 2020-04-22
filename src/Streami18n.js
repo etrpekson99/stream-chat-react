@@ -122,12 +122,8 @@ Dayjs.updateLocale('ru', {
 });
 
 const en_locale = {
-  weekdays: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split(
-    '_',
-  ),
-  months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split(
-    '_',
-  ),
+  weekdays: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+  months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
 };
 
 /**
@@ -395,8 +391,7 @@ export class Streami18n {
 
     this.validateCurrentLanguage(this.currentLanguage);
 
-    const dayjsLocaleConfigForLanguage =
-      finalOptions.dayjsLocaleConfigForLanguage;
+    const dayjsLocaleConfigForLanguage = finalOptions.dayjsLocaleConfigForLanguage;
 
     if (dayjsLocaleConfigForLanguage) {
       this.addOrUpdateLocale(this.currentLanguage, {
@@ -411,10 +406,7 @@ export class Streami18n {
     }
 
     this.tDateTimeParser = (timestamp) => {
-      if (
-        finalOptions.disableDateTimeTranslations ||
-        !this.localeExists(this.currentLanguage)
-      ) {
+      if (finalOptions.disableDateTimeTranslations || !this.localeExists(this.currentLanguage)) {
         return this.DateTimeParser(timestamp).locale(defaultLng);
       }
       return this.DateTimeParser(timestamp).locale(this.currentLanguage);
@@ -477,10 +469,7 @@ export class Streami18n {
   async getTranslators() {
     if (!this.initialized) {
       if (this.dayjsLocales[this.currentLanguage]) {
-        this.addOrUpdateLocale(
-          this.currentLanguage,
-          this.dayjsLocales[this.currentLanguage],
-        );
+        this.addOrUpdateLocale(this.currentLanguage, this.dayjsLocales[this.currentLanguage]);
       }
       return await this.init();
     } else {
@@ -549,10 +538,7 @@ export class Streami18n {
     try {
       const t = await this.i18nInstance.changeLanguage(language);
       if (this.dayjsLocales[language]) {
-        this.addOrUpdateLocale(
-          this.currentLanguage,
-          this.dayjsLocales[this.currentLanguage],
-        );
+        this.addOrUpdateLocale(this.currentLanguage, this.dayjsLocales[this.currentLanguage]);
       }
 
       this.setLanguageCallback(t);

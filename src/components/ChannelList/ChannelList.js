@@ -57,10 +57,7 @@ class ChannelList extends PureComponent {
      * [ChatDown](https://github.com/GetStream/stream-chat-react/blob/master/src/components/ChatDown.js)
      *
      */
-    LoadingErrorIndicator: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.func,
-    ]),
+    LoadingErrorIndicator: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     /**
      * Custom UI Component for container of list of channels. Note that, list (UI component) of channels is passed
      * to this component as children. This component is for the purpose of adding header to channel list or styling container
@@ -258,8 +255,7 @@ class ChannelList extends PureComponent {
           channels, // not unique somehow needs more checking
           loadingChannels: false,
           offset: channels.length,
-          hasNextPage:
-            channelQueryResponse.length >= newOptions.limit ? true : false,
+          hasNextPage: channelQueryResponse.length >= newOptions.limit ? true : false,
           refreshing: false,
         };
       });
@@ -273,15 +269,8 @@ class ChannelList extends PureComponent {
           this.props.setActiveChannel(customActiveChannel, this.props.watchers);
           this.moveChannelUp(customActiveChannel.cid);
         }
-      } else if (
-        setActiveChannelOnMount &&
-        offset === 0 &&
-        this.state.channels.length
-      ) {
-        this.props.setActiveChannel(
-          this.state.channels[0],
-          this.props.watchers,
-        );
+      } else if (setActiveChannelOnMount && offset === 0 && this.state.channels.length) {
+        this.props.setActiveChannel(this.state.channels[0], this.props.watchers);
       }
     } catch (e) {
       console.warn(e);
@@ -324,10 +313,7 @@ class ChannelList extends PureComponent {
     if (e.type === 'notification.message_new') {
       // if new message, put move channel up
       // get channel if not in state currently
-      if (
-        this.props.onMessageNew &&
-        typeof this.props.onMessageNew === 'function'
-      ) {
+      if (this.props.onMessageNew && typeof this.props.onMessageNew === 'function') {
         this.props.onMessageNew(this, e);
       } else {
         const channel = await this.getChannel(e.channel.type, e.channel.id);
@@ -340,10 +326,7 @@ class ChannelList extends PureComponent {
 
     // add to channel
     if (e.type === 'notification.added_to_channel') {
-      if (
-        this.props.onAddedToChannel &&
-        typeof this.props.onAddedToChannel === 'function'
-      ) {
+      if (this.props.onAddedToChannel && typeof this.props.onAddedToChannel === 'function') {
         this.props.onAddedToChannel(this, e);
       } else {
         const channel = await this.getChannel(e.channel.type, e.channel.id);
@@ -355,16 +338,11 @@ class ChannelList extends PureComponent {
 
     // remove from channel
     if (e.type === 'notification.removed_from_channel') {
-      if (
-        this.props.onRemovedFromChannel &&
-        typeof this.props.onRemovedFromChannel === 'function'
-      ) {
+      if (this.props.onRemovedFromChannel && typeof this.props.onRemovedFromChannel === 'function') {
         this.props.onRemovedFromChannel(this, e);
       } else {
         this.setState((prevState) => {
-          const channels = prevState.channels.filter(
-            (channel) => channel.cid !== e.channel.cid,
-          );
+          const channels = prevState.channels.filter((channel) => channel.cid !== e.channel.cid);
           return {
             channels,
           };
@@ -375,9 +353,7 @@ class ChannelList extends PureComponent {
     // Update the channel with data
     if (e.type === 'channel.updated') {
       const channels = this.state.channels;
-      const channelIndex = channels.findIndex(
-        (channel) => channel.cid === e.channel.cid,
-      );
+      const channelIndex = channels.findIndex((channel) => channel.cid === e.channel.cid);
       if (channelIndex > -1) {
         channels[channelIndex].data = Immutable(e.channel);
 
@@ -387,26 +363,18 @@ class ChannelList extends PureComponent {
         });
       }
 
-      if (
-        this.props.onChannelUpdated &&
-        typeof this.props.onChannelUpdated === 'function'
-      ) {
+      if (this.props.onChannelUpdated && typeof this.props.onChannelUpdated === 'function') {
         this.props.onChannelUpdated(this, e);
       }
     }
 
     // Channel is deleted
     if (e.type === 'channel.deleted') {
-      if (
-        this.props.onChannelDeleted &&
-        typeof this.props.onChannelDeleted === 'function'
-      ) {
+      if (this.props.onChannelDeleted && typeof this.props.onChannelDeleted === 'function') {
         this.props.onChannelDeleted(this, e);
       } else {
         const channels = this.state.channels;
-        const channelIndex = channels.findIndex(
-          (channel) => channel.cid === e.channel.cid,
-        );
+        const channelIndex = channels.findIndex((channel) => channel.cid === e.channel.cid);
 
         if (channelIndex < 0) return;
 
@@ -425,10 +393,7 @@ class ChannelList extends PureComponent {
         channelUpdateCount: prevState.channelUpdateCount + 1,
       }));
 
-      if (
-        this.props.onChannelTruncated &&
-        typeof this.props.onChannelTruncated === 'function'
-      )
+      if (this.props.onChannelTruncated && typeof this.props.onChannelTruncated === 'function')
         this.props.onChannelTruncated(this, e);
     }
 
@@ -444,9 +409,7 @@ class ChannelList extends PureComponent {
   moveChannelUp = (cid) => {
     const channels = this.state.channels;
     // get channel index
-    const channelIndex = this.state.channels.findIndex(
-      (channel) => channel.cid === cid,
-    );
+    const channelIndex = this.state.channels.findIndex((channel) => channel.cid === cid);
     if (channelIndex <= 0) return;
 
     // get channel from channels
@@ -487,11 +450,7 @@ class ChannelList extends PureComponent {
   };
 
   _handleClickOutside = (e) => {
-    if (
-      this.channelListRef &&
-      !this.channelListRef.contains(e.target) &&
-      this.props.navOpen
-    ) {
+    if (this.channelListRef && !this.channelListRef.contains(e.target) && this.props.navOpen) {
       this.props.closeMobileNav();
     }
   };
@@ -505,8 +464,7 @@ class ChannelList extends PureComponent {
           className={`str-chat str-chat-channel-list ${this.props.theme} ${
             this.props.navOpen ? 'str-chat-channel-list--open' : ''
           }`}
-          ref={(ref) => (this.channelListRef = ref)}
-        >
+          ref={(ref) => (this.channelListRef = ref)}>
           <List
             loading={loadingChannels}
             error={this.state.error}
@@ -515,8 +473,7 @@ class ChannelList extends PureComponent {
             activeChannel={this.props.channel}
             showSidebar={this.props.showSidebar}
             LoadingIndicator={this.props.LoadingIndicator}
-            LoadingErrorIndicator={this.props.LoadingErrorIndicator}
-          >
+            LoadingErrorIndicator={this.props.LoadingErrorIndicator}>
             {!channels.length ? (
               <EmptyStateIndicator listType="channel" />
             ) : (

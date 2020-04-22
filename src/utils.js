@@ -122,11 +122,7 @@ export const formatArray = (dict, currentUserId) => {
   } else if (arr3.length > 2) {
     //joins all with commas, but last one gets ", and" (oxford comma!)
     //example: "bob, joe, and sam"
-    outStr =
-      arr3.slice(0, -1).join(', ') +
-      ', and ' +
-      arr3.slice(-1) +
-      ' are typing...';
+    outStr = arr3.slice(0, -1).join(', ') + ', and ' + arr3.slice(-1) + ' are typing...';
   }
 
   return outStr;
@@ -235,10 +231,7 @@ export const MESSAGE_ACTIONS = {
 };
 
 export const filterEmoji = (emoji) => {
-  if (
-    emoji.name === 'White Smiling Face' ||
-    emoji.name === 'White Frowning Face'
-  ) {
+  if (emoji.name === 'White Smiling Face' || emoji.name === 'White Frowning Face') {
     return false;
   }
   return true;

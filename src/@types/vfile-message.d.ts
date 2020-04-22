@@ -15,11 +15,7 @@ declare namespace vfileMessage {
      * @param position Place at which the message occurred in a file (`Node`, `Position`, or `Point`, optional).
      * @param origin Place in code the message originates from (`string`, optional).
      */
-    (
-      reason: string | Error,
-      position?: Unist.Node | Unist.Position | Unist.Point,
-      origin?: string,
-    ): VFileMessage;
+    (reason: string | Error, position?: Unist.Node | Unist.Position | Unist.Point, origin?: string): VFileMessage;
 
     /**
      * Constructor of a message for `reason` at `position` from `origin`.
@@ -29,11 +25,7 @@ declare namespace vfileMessage {
      * @param position Place at which the message occurred in a file (`Node`, `Position`, or `Point`, optional).
      * @param origin Place in code the message originates from (`string`, optional).
      */
-    new (
-      reason: string | Error,
-      position?: Unist.Node | Unist.Position | Unist.Point,
-      origin?: string,
-    ): VFileMessage;
+    new (reason: string | Error, position?: Unist.Node | Unist.Position | Unist.Point, origin?: string): VFileMessage;
 
     /**
      * Category of message.

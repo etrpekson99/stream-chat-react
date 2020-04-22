@@ -14,12 +14,7 @@ const options = {
 };
 <div className="str-chat" style={{ height: 'unset' }}>
   <Chat client={data.client}>
-    <ChannelList
-      Preview={ChannelPreviewCompact}
-      filters={filters}
-      options={options}
-      sort={sort}
-    />
+    <ChannelList Preview={ChannelPreviewCompact} filters={filters} options={options} sort={sort} />
   </Chat>
 </div>;
 ```

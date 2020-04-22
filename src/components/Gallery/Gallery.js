@@ -40,11 +40,7 @@ class Gallery extends React.PureComponent {
     return (
       <div className="str-chat__gallery">
         {images.slice(0, 3).map((image, i) => (
-          <div
-            className="str-chat__gallery-image"
-            key={`gallery-image-${i}`}
-            onClick={() => this.toggleModal(i)}
-          >
+          <div className="str-chat__gallery-image" key={`gallery-image-${i}`} onClick={() => this.toggleModal(i)}>
             <img src={image.image_url || image.thumb_url} />
           </div>
         ))}
@@ -54,8 +50,7 @@ class Gallery extends React.PureComponent {
             style={{
               backgroundImage: `url(${images[3].image_url})`,
             }}
-            onClick={() => this.toggleModal(3)}
-          >
+            onClick={() => this.toggleModal(3)}>
             <p>
               {t('{{ imageCount }} more', {
                 imageCount: images.length - 3,
@@ -75,10 +70,7 @@ class Gallery extends React.PureComponent {
         <ModalGateway>
           {this.state.modalIsOpen ? (
             <Modal onClose={this.toggleModal} closeOnBackdropClick={true}>
-              <Carousel
-                views={formattedArray}
-                currentIndex={this.state.currentIndex}
-              />
+              <Carousel views={formattedArray} currentIndex={this.state.currentIndex} />
             </Modal>
           ) : null}
         </ModalGateway>

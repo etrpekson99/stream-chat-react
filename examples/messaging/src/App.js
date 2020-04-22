@@ -61,9 +61,7 @@ class App extends Component {
           filters={filters}
           sort={sort}
           options={options}
-          Paginator={(props) => (
-            <InfiniteScrollPaginator threshold={300} {...props} />
-          )}
+          Paginator={(props) => <InfiniteScrollPaginator threshold={300} {...props} />}
         />
         <Channel>
           <Window>

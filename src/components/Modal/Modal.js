@@ -33,14 +33,9 @@ class Modal extends React.PureComponent {
   };
 
   render() {
-    const openClasses = this.props.open
-      ? 'str-chat__modal--open'
-      : 'str-chat__modal--closed';
+    const openClasses = this.props.open ? 'str-chat__modal--open' : 'str-chat__modal--closed';
     return (
-      <div
-        className={`str-chat__modal ${openClasses}`}
-        onClick={this.handleClick}
-      >
+      <div className={`str-chat__modal ${openClasses}`} onClick={this.handleClick}>
         <div className="str-chat__modal__close-button">
           Close
           <svg width="10" height="10" xmlns="http://www.w3.org/2000/svg">

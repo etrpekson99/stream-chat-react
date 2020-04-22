@@ -65,9 +65,7 @@ class ReactTextareaAutocomplete extends React.Component {
   componentDidMount() {
     Listeners.add(KEY_CODES.ESC, () => this._closeAutocomplete());
     Listeners.add(KEY_CODES.SPACE, () => this._onSpace());
-    const listenerIndex = Listeners.add(KEY_CODES.ENTER, (e) =>
-      this._onEnter(e),
-    );
+    const listenerIndex = Listeners.add(KEY_CODES.ENTER, (e) => this._onEnter(e));
     this.setState({
       listenerIndex,
     });
@@ -98,10 +96,7 @@ class ReactTextareaAutocomplete extends React.Component {
 
     if (selectionStart === selectionEnd) return null;
 
-    return this.state.value.substr(
-      selectionStart,
-      selectionEnd - selectionStart,
-    );
+    return this.state.value.substr(selectionStart, selectionEnd - selectionStart);
   };
 
   setCaretPosition = (position = 0) => {
@@ -174,10 +169,7 @@ class ReactTextareaAutocomplete extends React.Component {
     if (newWord == null) {
       return;
     }
-    const textBeforeWord = value.slice(
-      0,
-      this.getCaretPosition() - match[0].length,
-    );
+    const textBeforeWord = value.slice(0, this.getCaretPosition() - match[0].length);
     const textAfterCaret = value.slice(this.getCaretPosition(), -1);
     const newText = textBeforeWord + newWord + spaces + textAfterCaret;
     this.setState(
@@ -208,9 +200,7 @@ class ReactTextareaAutocomplete extends React.Component {
           return startToken + token.length;
         default:
           if (!Number.isInteger(position)) {
-            throw new Error(
-              'RTA: caretPosition should be "start", "next", "end" or number.',
-            );
+            throw new Error('RTA: caretPosition should be "start", "next", "end" or number.');
           }
 
           return position;
@@ -224,24 +214,16 @@ class ReactTextareaAutocomplete extends React.Component {
        * It's important to escape the currentTrigger char for chars like [, (,...
        */
       new RegExp(
-        `\\${currentTrigger}${`[^\\${currentTrigger}${
-          trigger[currentTrigger].allowWhitespace ? '' : '\\s'
-        }]`}*$`,
+        `\\${currentTrigger}${`[^\\${currentTrigger}${trigger[currentTrigger].allowWhitespace ? '' : '\\s'}]`}*$`,
       ),
     );
 
     // we add space after emoji is selected if a caret position is next
-    const newTokenString =
-      newToken.caretPosition === 'next' ? `${newToken.text} ` : newToken.text;
+    const newTokenString = newToken.caretPosition === 'next' ? `${newToken.text} ` : newToken.text;
 
-    const newCaretPosition = computeCaretPosition(
-      newToken.caretPosition,
-      newTokenString,
-      startOfTokenPosition,
-    );
+    const newCaretPosition = computeCaretPosition(newToken.caretPosition, newTokenString, startOfTokenPosition);
 
-    const modifiedText =
-      textToModify.substring(0, startOfTokenPosition) + newTokenString;
+    const modifiedText = textToModify.substring(0, startOfTokenPosition) + newTokenString;
 
     // set the new textarea value and after that set the caret back to its position
     this.setState(
@@ -293,10 +275,7 @@ class ReactTextareaAutocomplete extends React.Component {
     const { output } = triggerSettings;
 
     return (item) => {
-      if (
-        typeof item === 'object' &&
-        (!output || typeof output !== 'function')
-      ) {
+      if (typeof item === 'object' && (!output || typeof output !== 'function')) {
         throw new Error(
           'Output functor is not defined! If you are using items as object you have to define "output" function. https://github.com/webscopeio/react-textarea-autocomplete#trigger-type',
         );
@@ -420,9 +399,7 @@ class ReactTextareaAutocomplete extends React.Component {
 
     // negative lookahead to match only the trigger + the actual token = "bladhwd:adawd:word test" => ":word"
     // https://stackoverflow.com/a/8057827/2719917
-    this.tokenRegExp = new RegExp(
-      `([${Object.keys(trigger).join('')}])(?:(?!\\1)[^\\s])*$`,
-    );
+    this.tokenRegExp = new RegExp(`([${Object.keys(trigger).join('')}])(?:(?!\\1)[^\\s])*$`);
   };
 
   // TODO: This is an anti pattern in react, should come up with a better way
@@ -494,13 +471,7 @@ class ReactTextareaAutocomplete extends React.Component {
   };
 
   _changeHandler = (e) => {
-    const {
-      trigger,
-      onChange,
-      minChar,
-      onCaretPositionChange,
-      movePopupAsYouType,
-    } = this.props;
+    const { trigger, onChange, minChar, onCaretPositionChange, movePopupAsYouType } = this.props;
     const { top, left } = this.state;
 
     const textarea = e.target;
@@ -524,9 +495,7 @@ class ReactTextareaAutocomplete extends React.Component {
     let tokenMatch = this.tokenRegExp.exec(value.slice(0, selectionEnd));
     let lastToken = tokenMatch && tokenMatch[0];
 
-    let currentTrigger =
-      (lastToken && Object.keys(trigger).find((a) => a === lastToken[0])) ||
-      null;
+    let currentTrigger = (lastToken && Object.keys(trigger).find((a) => a === lastToken[0])) || null;
 
     /*
      if we lost the trigger token or there is no following character we want to close
@@ -535,9 +504,7 @@ class ReactTextareaAutocomplete extends React.Component {
     if (
       (!lastToken || lastToken.length <= minChar) &&
       // check if our current trigger disallows whitespace
-      ((this.state.currentTrigger &&
-        !trigger[this.state.currentTrigger].allowWhitespace) ||
-        !this.state.currentTrigger)
+      ((this.state.currentTrigger && !trigger[this.state.currentTrigger].allowWhitespace) || !this.state.currentTrigger)
     ) {
       this._closeAutocomplete();
       return;
@@ -563,13 +530,10 @@ class ReactTextareaAutocomplete extends React.Component {
       If our current trigger allows whitespace
       get the correct token for DataProvider, so we need to construct new RegExp
      */
-    if (
-      this.state.currentTrigger &&
-      trigger[this.state.currentTrigger].allowWhitespace
-    ) {
-      tokenMatch = new RegExp(
-        `\\${this.state.currentTrigger}[^${this.state.currentTrigger}]*$`,
-      ).exec(value.slice(0, selectionEnd));
+    if (this.state.currentTrigger && trigger[this.state.currentTrigger].allowWhitespace) {
+      tokenMatch = new RegExp(`\\${this.state.currentTrigger}[^${this.state.currentTrigger}]*$`).exec(
+        value.slice(0, selectionEnd),
+      );
       lastToken = tokenMatch && tokenMatch[0];
 
       if (!lastToken) {
@@ -577,8 +541,7 @@ class ReactTextareaAutocomplete extends React.Component {
         return;
       }
 
-      currentTrigger =
-        Object.keys(trigger).find((a) => a === lastToken[0]) || null;
+      currentTrigger = Object.keys(trigger).find((a) => a === lastToken[0]) || null;
     }
 
     const actualToken = lastToken.slice(1);
@@ -594,10 +557,7 @@ class ReactTextareaAutocomplete extends React.Component {
       // if we have single char - trigger it means we want to re-position the autocomplete
       lastToken.length === 1
     ) {
-      const { top: newTop, left: newLeft } = getCaretCoordinates(
-        textarea,
-        selectionEnd,
-      );
+      const { top: newTop, left: newLeft } = getCaretCoordinates(textarea, selectionEnd);
 
       this.setState({
         // make position relative to textarea
@@ -644,11 +604,7 @@ class ReactTextareaAutocomplete extends React.Component {
     // that was actually clicked. If we clicked inside the autoselect dropdown, then
     // that's not a blur, from the autoselect's point of view, so then do nothing.
     const el = e.relatedTarget;
-    if (
-      this.dropdownRef &&
-      el instanceof Node &&
-      this.dropdownRef.contains(el)
-    ) {
+    if (this.dropdownRef && el instanceof Node && this.dropdownRef.contains(el)) {
       return;
     }
 
@@ -713,11 +669,8 @@ class ReactTextareaAutocomplete extends React.Component {
 
     return (
       <div
-        className={`rta ${
-          dataLoading === true ? 'rta--loading' : ''
-        } ${containerClassName || ''}`}
-        style={containerStyle}
-      >
+        className={`rta ${dataLoading === true ? 'rta--loading' : ''} ${containerClassName || ''}`}
+        style={containerStyle}>
         {(dataLoading || suggestionData) && currentTrigger && (
           <div
             ref={(ref) => {
@@ -725,8 +678,7 @@ class ReactTextareaAutocomplete extends React.Component {
               this.dropdownRef = ref;
             }}
             style={{ ...dropdownStyle }}
-            className={`rta__autocomplete ${dropdownClassName || ''}`}
-          >
+            className={`rta__autocomplete ${dropdownClassName || ''}`}>
             {suggestionData && component && textToReplace && (
               <List
                 value={value}
@@ -744,12 +696,9 @@ class ReactTextareaAutocomplete extends React.Component {
             {dataLoading && (
               <div
                 className={`rta__loader ${
-                  suggestionData !== null
-                    ? 'rta__loader--suggestion-data'
-                    : 'rta__loader--empty-suggestion-data'
+                  suggestionData !== null ? 'rta__loader--suggestion-data' : 'rta__loader--empty-suggestion-data'
                 } ${loaderClassName || ''}`}
-                style={loaderStyle}
-              >
+                style={loaderStyle}>
                 <Loader data={suggestionData} />
               </div>
             )}
@@ -791,22 +740,13 @@ const triggerPropsCheck = ({ trigger }) => {
     const [triggerChar, settings] = triggers[i];
 
     if (typeof triggerChar !== 'string' || triggerChar.length !== 1) {
-      return Error(
-        'Invalid prop trigger. Keys of the object has to be string / one character.',
-      );
+      return Error('Invalid prop trigger. Keys of the object has to be string / one character.');
     }
 
     // $FlowFixMe
     const triggerSetting = settings;
 
-    const {
-      component,
-      dataProvider,
-      output,
-      callback,
-      afterWhitespace,
-      allowWhitespace,
-    } = triggerSetting;
+    const { component, dataProvider, output, callback, afterWhitespace, allowWhitespace } = triggerSetting;
 
     if (!isValidElementType(component)) {
       return Error('Invalid prop trigger: component should be defined.');
@@ -825,9 +765,7 @@ const triggerPropsCheck = ({ trigger }) => {
     }
 
     if (afterWhitespace && allowWhitespace) {
-      return Error(
-        'Invalid prop trigger: afterWhitespace and allowWhitespace can be used together',
-      );
+      return Error('Invalid prop trigger: afterWhitespace and allowWhitespace can be used together');
     }
   }
 

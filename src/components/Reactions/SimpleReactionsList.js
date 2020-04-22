@@ -55,15 +55,9 @@ class SimpleReactionsList extends React.PureComponent {
   getReactionCount = () => {
     const reaction_counts = this.props.reaction_counts;
     let count = null;
-    if (
-      reaction_counts !== null &&
-      reaction_counts !== undefined &&
-      Object.keys(reaction_counts).length > 0
-    ) {
+    if (reaction_counts !== null && reaction_counts !== undefined && Object.keys(reaction_counts).length > 0) {
       count = 0;
-      Object.keys(reaction_counts).map(
-        (key) => (count += reaction_counts[key]),
-      );
+      Object.keys(reaction_counts).map((key) => (count += reaction_counts[key]));
     }
     return count;
   };
@@ -87,10 +81,7 @@ class SimpleReactionsList extends React.PureComponent {
       if (reactionsByType[item.type] === undefined) {
         return (reactionsByType[item.type] = [item]);
       } else {
-        return (reactionsByType[item.type] = [
-          ...reactionsByType[item.type],
-          item,
-        ]);
+        return (reactionsByType[item.type] = [...reactionsByType[item.type], item]);
       }
     });
     return reactionsByType;
@@ -98,33 +89,21 @@ class SimpleReactionsList extends React.PureComponent {
 
   renderReactions = (reactions) => {
     const reactionsByType = this.getReactionsByType(reactions);
-    const reactionsEmojis = this.props.reactionOptions.reduce(
-      (acc, cur) => ({ ...acc, [cur.id]: cur }),
-      {},
-    );
+    const reactionsEmojis = this.props.reactionOptions.reduce((acc, cur) => ({ ...acc, [cur.id]: cur }), {});
     return Object.keys(reactionsByType).map((type, i) => (
       <li
         className="str-chat__simple-reactions-list-item"
         key={`${reactionsByType[type][0].id}-${i}`}
-        onClick={(e) => this.handleReaction(e, type)}
-      >
+        onClick={(e) => this.handleReaction(e, type)}>
         <span onMouseEnter={() => this.setUsernames(type)}>
-          <NimbleEmoji
-            emoji={reactionsEmojis[type]}
-            {...emojiSetDef}
-            size={13}
-            data={emojiData}
-          />
+          <NimbleEmoji emoji={reactionsEmojis[type]} {...emojiSetDef} size={13} data={emojiData} />
           &nbsp;
         </span>
       </li>
     ));
   };
 
-  getUsernames = (reactions) =>
-    reactions.map((item) =>
-      item.user !== null ? item.user.name || item.user.id : 'null',
-    );
+  getUsernames = (reactions) => reactions.map((item) => (item.user !== null ? item.user.name || item.user.id : 'null'));
 
   setUsernames = (type) => {
     const reactionsByType = this.getReactionsByType(this.props.reactions);
@@ -148,24 +127,16 @@ class SimpleReactionsList extends React.PureComponent {
       return null;
     }
     return (
-      <ul
-        className="str-chat__simple-reactions-list"
-        onMouseLeave={this.hideTooltip}
-      >
+      <ul className="str-chat__simple-reactions-list" onMouseLeave={this.hideTooltip}>
         {this.state.showTooltip && (
-          <div
-            className="str-chat__simple-reactions-list-tooltip"
-            ref={this.reactionSelectorTooltip}
-          >
+          <div className="str-chat__simple-reactions-list-tooltip" ref={this.reactionSelectorTooltip}>
             <div className="arrow" />
             {this.renderUsernames(this.state.users)}
           </div>
         )}
         {this.renderReactions(reactions)}
         {reactions.length !== 0 && (
-          <li className="str-chat__simple-reactions-list-item--last-number">
-            {this.getReactionCount()}
-          </li>
+          <li className="str-chat__simple-reactions-list-item--last-number">{this.getReactionCount()}</li>
         )}
       </ul>
     );

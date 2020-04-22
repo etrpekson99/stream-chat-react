@@ -147,19 +147,13 @@ class Message extends Component {
       reason = 'readBy';
     }
     // group style often changes for the last 3 messages...
-    if (
-      !shouldUpdate &&
-      !deepequal(nextProps.groupStyles, this.props.groupStyles)
-    ) {
+    if (!shouldUpdate && !deepequal(nextProps.groupStyles, this.props.groupStyles)) {
       shouldUpdate = true;
       reason = 'groupStyles';
     }
 
     // if lastreceivedId changesm, message should update.
-    if (
-      !shouldUpdate &&
-      !deepequal(nextProps.lastReceivedId, this.props.lastReceivedId)
-    ) {
+    if (!shouldUpdate && !deepequal(nextProps.lastReceivedId, this.props.lastReceivedId)) {
       shouldUpdate = true;
       reason = 'lastReceivedId';
     }
@@ -171,10 +165,7 @@ class Message extends Component {
     }
 
     // editing is the last one which can trigger a change..
-    if (
-      !shouldUpdate &&
-      nextProps.messageListRect !== this.props.messageListRect
-    ) {
+    if (!shouldUpdate && nextProps.messageListRect !== this.props.messageListRect) {
       shouldUpdate = true;
       reason = 'messageListRect';
     }
@@ -209,11 +200,7 @@ class Message extends Component {
     (this.props.channel.state.membership.role === 'channel_moderator' ||
       this.props.channel.state.membership.role === 'moderator');
 
-  canEditMessage = (message) =>
-    this.isMyMessage(message) ||
-    this.isModerator() ||
-    this.isOwner() ||
-    this.isAdmin();
+  canEditMessage = (message) => this.isMyMessage(message) || this.isModerator() || this.isOwner() || this.isAdmin();
 
   canDeleteMessage = (message) => this.canEditMessage(message);
 
@@ -248,27 +235,14 @@ class Message extends Component {
 
     try {
       await client.flagMessage(message.id);
-      const successMessage = this.validateAndGetNotificationMessage(
-        getFlagMessageSuccessNotification,
-        [message],
-      );
-      addNotification(
-        successMessage
-          ? successMessage
-          : t('Message has been successfully flagged'),
-        'success',
-      );
+      const successMessage = this.validateAndGetNotificationMessage(getFlagMessageSuccessNotification, [message]);
+      addNotification(successMessage ? successMessage : t('Message has been successfully flagged'), 'success');
     } catch (e) {
-      const errorMessage = this.validateAndGetNotificationMessage(
-        getFlagMessageErrorNotification,
-        [message],
-      );
+      const errorMessage = this.validateAndGetNotificationMessage(getFlagMessageErrorNotification, [message]);
       addNotification(
         errorMessage
           ? errorMessage
-          : t(
-              'Error adding flag: Either the flag already exist or there is issue with network connection ...',
-            ),
+          : t('Error adding flag: Either the flag already exist or there is issue with network connection ...'),
         'error',
       );
     }
@@ -288,10 +262,7 @@ class Message extends Component {
 
     try {
       await client.muteUser(message.user.id);
-      const successMessage = this.validateAndGetNotificationMessage(
-        getMuteUserSuccessNotification,
-        [message.user],
-      );
+      const successMessage = this.validateAndGetNotificationMessage(getMuteUserSuccessNotification, [message.user]);
 
       addNotification(
         successMessage
@@ -302,15 +273,9 @@ class Message extends Component {
         'success',
       );
     } catch (e) {
-      const errorMessage = this.validateAndGetNotificationMessage(
-        getMuteUserErrorNotification,
-        [message.user],
-      );
+      const errorMessage = this.validateAndGetNotificationMessage(getMuteUserErrorNotification, [message.user]);
 
-      addNotification(
-        errorMessage ? errorMessage : t('Error muting a user ...'),
-        'error',
-      );
+      addNotification(errorMessage ? errorMessage : t('Error muting a user ...'), 'error');
     }
   };
 
@@ -346,9 +311,7 @@ class Message extends Component {
       if (currentUser === reaction.user.id && reaction.type === reactionType) {
         userExistingReaction = reaction;
       } else if (currentUser !== reaction.user.id) {
-        console.warn(
-          `message.own_reactions contained reactions from a different user, this indicates a bug`,
-        );
+        console.warn(`message.own_reactions contained reactions from a different user, this indicates a bug`);
       }
     }
 
@@ -363,10 +326,7 @@ class Message extends Component {
     if (userExistingReaction) {
       // this.props.channel.state.removeReaction(userExistingReaction);
 
-      reactionChangePromise = this.props.channel.deleteReaction(
-        this.props.message.id,
-        userExistingReaction.type,
-      );
+      reactionChangePromise = this.props.channel.deleteReaction(this.props.message.id, userExistingReaction.type);
     } else {
       // add the reaction
       const messageID = this.props.message.id;
@@ -374,10 +334,7 @@ class Message extends Component {
       const reaction = { type: reactionType };
 
       // this.props.channel.state.addReaction(tmpReaction, this.props.message);
-      reactionChangePromise = this.props.channel.sendReaction(
-        messageID,
-        reaction,
-      );
+      reactionChangePromise = this.props.channel.sendReaction(messageID, reaction);
     }
 
     try {
@@ -441,32 +398,19 @@ class Message extends Component {
       return [];
     }
 
-    if (
-      this.canEditMessage(message) &&
-      messageActions.indexOf(MESSAGE_ACTIONS.edit) > -1
-    ) {
+    if (this.canEditMessage(message) && messageActions.indexOf(MESSAGE_ACTIONS.edit) > -1) {
       messageActionsAfterPermission.push(MESSAGE_ACTIONS.edit);
     }
 
-    if (
-      this.canDeleteMessage(message) &&
-      messageActions.indexOf(MESSAGE_ACTIONS.delete) > -1
-    ) {
+    if (this.canDeleteMessage(message) && messageActions.indexOf(MESSAGE_ACTIONS.delete) > -1) {
       messageActionsAfterPermission.push(MESSAGE_ACTIONS.delete);
     }
 
-    if (
-      !this.isMyMessage(message) &&
-      messageActions.indexOf(MESSAGE_ACTIONS.flag) > -1
-    ) {
+    if (!this.isMyMessage(message) && messageActions.indexOf(MESSAGE_ACTIONS.flag) > -1) {
       messageActionsAfterPermission.push(MESSAGE_ACTIONS.flag);
     }
 
-    if (
-      !this.isMyMessage(message) &&
-      messageActions.indexOf(MESSAGE_ACTIONS.mute) > -1 &&
-      mutes
-    ) {
+    if (!this.isMyMessage(message) && messageActions.indexOf(MESSAGE_ACTIONS.mute) > -1 && mutes) {
       messageActionsAfterPermission.push(MESSAGE_ACTIONS.mute);
     }
 
@@ -477,8 +421,7 @@ class Message extends Component {
     const config = this.props.channel.getConfig();
     const { message } = this.props;
 
-    const actionsEnabled =
-      message.type === 'regular' && message.status === 'received';
+    const actionsEnabled = message.type === 'regular' && message.status === 'received';
 
     const Component = this.props.Message;
     return (
@@ -494,9 +437,7 @@ class Message extends Component {
         handleDelete={this.handleDelete}
         handleEdit={this.handleEdit}
         handleRetry={this.handleRetry}
-        handleOpenThread={
-          this.props.openThread && this.props.openThread.bind(this, message)
-        }
+        handleOpenThread={this.props.openThread && this.props.openThread.bind(this, message)}
         isMyMessage={this.isMyMessage}
         channelConfig={config}
         onMentionsClickMessage={this.onMentionsClick}

@@ -18,17 +18,11 @@ import { KEY_CODES } from '../AutoCompleteTextarea';
 
 /* eslint sonarjs/no-duplicate-string: 0 */
 
-const Center = ({ children }) => (
-  <div className="str-chat__list__center">{children}</div>
-);
+const Center = ({ children }) => <div className="str-chat__list__center">{children}</div>;
 
 const Notification = ({ children, active, type }) => {
   if (active) {
-    return (
-      <div className={`str-chat__custom-notification notification-${type}`}>
-        {children}
-      </div>
-    );
+    return <div className={`str-chat__custom-notification notification-${type}`}>{children}</div>;
   }
   return null;
 };
@@ -237,11 +231,8 @@ class MessageList extends PureComponent {
     // Adjust scroll so these new items don't push the old ones out of view.
     // (snapshot here is the value returned from getSnapshotBeforeUpdate)
     const userScrolledUp = this.userScrolledUp();
-    const currentLastMessage = this.props.messages[
-      this.props.messages.length - 1
-    ];
-    const previousLastMessage =
-      prevProps.messages[prevProps.messages.length - 1];
+    const currentLastMessage = this.props.messages[this.props.messages.length - 1];
+    const previousLastMessage = prevProps.messages[prevProps.messages.length - 1];
     if (!previousLastMessage || !currentLastMessage) {
       return;
     }
@@ -260,8 +251,7 @@ class MessageList extends PureComponent {
       setTimeout(this.scrollToBottom, 100);
 
       // remove the scroll notification if we already scrolled down...
-      this.state.newMessagesNotification &&
-        this.setState({ newMessagesNotification: false });
+      this.state.newMessagesNotification && this.setState({ newMessagesNotification: false });
 
       return;
     }
@@ -274,10 +264,7 @@ class MessageList extends PureComponent {
       } else {
         // Maintain the bottomOffset of scroll.
         // This is for the case of pagination, when more messages get loaded.
-        this.scrollToTarget(
-          list.scrollHeight - snapshot.offsetBottom,
-          this.messageList.current,
-        );
+        this.scrollToTarget(list.scrollHeight - snapshot.offsetBottom, this.messageList.current);
       }
     }
 
@@ -323,8 +310,7 @@ class MessageList extends PureComponent {
     } else if (isNumber) {
       containerEl.scrollTop = target;
     } else if (target === 'bottom') {
-      containerEl.scrollTop =
-        containerEl.scrollHeight - containerEl.offsetHeight;
+      containerEl.scrollTop = containerEl.scrollHeight - containerEl.offsetHeight;
     } else if (target === 'top') {
       containerEl.scrollTop = 0;
     }
@@ -359,17 +345,12 @@ class MessageList extends PureComponent {
       }
 
       if (i === 0 || messageDate !== prevMessageDate) {
-        newMessages.push(
-          { type: 'message.date', date: message.created_at },
-          message,
-        );
+        newMessages.push({ type: 'message.date', date: message.created_at }, message);
       } else {
         newMessages.push(message);
       }
 
-      const eventsNextToMessage = this.props.eventHistory[
-        message.id || 'first'
-      ];
+      const eventsNextToMessage = this.props.eventHistory[message.id || 'first'];
       if (eventsNextToMessage && eventsNextToMessage.length > 0) {
         eventsNextToMessage.forEach((e) => {
           newMessages.push({
@@ -404,21 +385,16 @@ class MessageList extends PureComponent {
 
     // else loop over the messages
     for (const [i, message] of messages.entries()) {
-      const messageTime = message.created_at
-        ? message.created_at.getTime()
-        : null;
+      const messageTime = message.created_at ? message.created_at.getTime() : null;
       const nextMessageTime =
-        messages[i + 1] && messages[i + 1].created_at
-          ? messages[i + 1].created_at.getTime()
-          : null;
+        messages[i + 1] && messages[i + 1].created_at ? messages[i + 1].created_at.getTime() : null;
       const { headerPosition } = this.props;
 
       // headerposition is smaller than message time so comes after;
       if (messageTime < headerPosition) {
         // if header position is also smaller than message time continue;
         if (nextMessageTime < headerPosition) {
-          if (messages[i + 1] && messages[i + 1].type === 'message.date')
-            continue;
+          if (messages[i + 1] && messages[i + 1].type === 'message.date') continue;
           if (!nextMessageTime) {
             newMessages.push({ type: 'channel.intro' });
             return newMessages;
@@ -459,10 +435,7 @@ class MessageList extends PureComponent {
         }
       }
       if (userLastReadMsgId != null) {
-        readData[userLastReadMsgId] = [
-          ...readData[userLastReadMsgId],
-          readState.user,
-        ];
+        readData[userLastReadMsgId] = [...readData[userLastReadMsgId], readState.user];
       }
     }
     return readData;
@@ -483,11 +456,7 @@ class MessageList extends PureComponent {
     const l = messages.length;
     let lastReceivedId = null;
     for (let i = l; i > 0; i--) {
-      if (
-        messages[i] !== undefined &&
-        messages[i].status !== undefined &&
-        messages[i].status === 'received'
-      ) {
+      if (messages[i] !== undefined && messages[i].status !== undefined && messages[i].status === 'received') {
         lastReceivedId = messages[i].id;
         break;
       }
@@ -589,9 +558,7 @@ class MessageList extends PureComponent {
     const textContent = e.target.innerHTML.replace('*', '');
     if (tagName === 'strong' && textContent[0] === '@') {
       const userName = textContent.replace('@', '');
-      const user = mentioned_users.find(
-        (user) => user.name === userName || user.id === userName,
-      );
+      const user = mentioned_users.find((user) => user.name === userName || user.id === userName);
       if (this.props.onMentionsHover && e.type === 'mouseover') {
         this.props.onMentionsHover(e, user);
       }
@@ -640,10 +607,7 @@ class MessageList extends PureComponent {
     this.notificationTimeouts.push(ct);
   };
 
-  _loadMore = () =>
-    this.props.messageLimit
-      ? this.props.loadMore(this.props.messageLimit)
-      : this.props.loadMore();
+  _loadMore = () => (this.props.messageLimit ? this.props.loadMore(this.props.messageLimit) : this.props.loadMore());
 
   // eslint-disable-next-line
   render() {
@@ -655,13 +619,7 @@ class MessageList extends PureComponent {
     }
     const messageGroupStyles = this.getGroupStyles(allMessages);
 
-    const {
-      TypingIndicator,
-      dateSeparator: DateSeparator,
-      HeaderComponent,
-      EmptyStateIndicator,
-      t,
-    } = this.props;
+    const { TypingIndicator, dateSeparator: DateSeparator, HeaderComponent, EmptyStateIndicator, t } = this.props;
 
     // sort by date
     allMessages.sort((a, b) => a.created_at - b.created_at);
@@ -693,10 +651,7 @@ class MessageList extends PureComponent {
             <HeaderComponent />
           </li>,
         );
-      } else if (
-        message.type === 'channel.event' ||
-        message.type === 'system'
-      ) {
+      } else if (message.type === 'channel.event' || message.type === 'system') {
         MessageSystem &&
           elements.push(
             <li
@@ -706,8 +661,7 @@ class MessageList extends PureComponent {
                   : message.type === 'channel.event'
                   ? message.event.created_at
                   : ''
-              }
-            >
+              }>
               <MessageSystem message={message} />
             </li>,
           );
@@ -722,8 +676,7 @@ class MessageList extends PureComponent {
           <li
             className={`str-chat__li str-chat__li--${groupStyles}`}
             key={message.id || message.created_at}
-            ref={this.messageRefs[message.id]}
-          >
+            ref={this.messageRefs[message.id]}>
             <Message
               client={this.props.client}
               openThread={this.props.openThread}
@@ -732,12 +685,8 @@ class MessageList extends PureComponent {
               message={message}
               groupStyles={groupStyles}
               readBy={readBy}
-              lastReceivedId={
-                lastReceivedId === message.id ? lastReceivedId : null
-              }
-              editing={
-                !!(this.state.editing && this.state.editing === message.id)
-              }
+              lastReceivedId={lastReceivedId === message.id ? lastReceivedId : null}
+              editing={!!(this.state.editing && this.state.editing === message.id)}
               clearEditingState={this.clearEditingState}
               setEditingState={this.setEditingState}
               messageListRect={this.state.messageListRect}
@@ -753,21 +702,11 @@ class MessageList extends PureComponent {
               onMentionsClick={this.props.onMentionsClick}
               onMentionsHover={this.props.onMentionsHover}
               messageActions={this.props.messageActions}
-              additionalMessageInputProps={
-                this.props.additionalMessageInputProps
-              }
-              getFlagMessageSuccessNotification={
-                this.props.getFlagMessageSuccessNotification
-              }
-              getFlagMessageErrorNotification={
-                this.props.getFlagMessageErrorNotification
-              }
-              getMuteUserSuccessNotification={
-                this.props.getMuteUserSuccessNotification
-              }
-              getMuteUserErrorNotification={
-                this.props.getMuteUserErrorNotification
-              }
+              additionalMessageInputProps={this.props.additionalMessageInputProps}
+              getFlagMessageSuccessNotification={this.props.getFlagMessageSuccessNotification}
+              getFlagMessageErrorNotification={this.props.getFlagMessageErrorNotification}
+              getMuteUserSuccessNotification={this.props.getMuteUserSuccessNotification}
+              getMuteUserErrorNotification={this.props.getMuteUserErrorNotification}
             />
           </li>,
         );
@@ -776,11 +715,8 @@ class MessageList extends PureComponent {
     return (
       <React.Fragment>
         <div
-          className={`str-chat__list ${
-            this.props.threadList ? 'str-chat__list--thread' : ''
-          }`}
-          ref={this.messageList}
-        >
+          className={`str-chat__list ${this.props.threadList ? 'str-chat__list--thread' : ''}`}
+          ref={this.messageList}>
           {!elements.length ? (
             <EmptyStateIndicator listType="message" />
           ) : (
@@ -794,15 +730,9 @@ class MessageList extends PureComponent {
                 <Center key="loadingindicator">
                   <LoadingIndicator size={20} />
                 </Center>
-              }
-            >
+              }>
               <ul className="str-chat__ul">{elements}</ul>
-              {this.props.TypingIndicator && (
-                <TypingIndicator
-                  typing={this.props.typing}
-                  client={this.props.client}
-                />
-              )}
+              {this.props.TypingIndicator && <TypingIndicator typing={this.props.typing} client={this.props.client} />}
               <div key="bottom" ref={this.bottomRef} />
             </ReverseInfiniteScroll>
           )}
@@ -810,11 +740,7 @@ class MessageList extends PureComponent {
 
         <div className="str-chat__list-notifications">
           {this.state.notifications.map((notification) => (
-            <Notification
-              active={true}
-              key={notification.id}
-              type={notification.type}
-            >
+            <Notification active={true} key={notification.id} type={notification.type}>
               {notification.text}
             </Notification>
           ))}
@@ -822,10 +748,7 @@ class MessageList extends PureComponent {
             {t('Connection failure, reconnecting now...')}
           </Notification>
 
-          <MessageNotification
-            showNotification={this.state.newMessagesNotification}
-            onClick={this.goToNewMessages}
-          >
+          <MessageNotification showNotification={this.state.newMessagesNotification} onClick={this.goToNewMessages}>
             {t('New Messages!')}
           </MessageNotification>
         </div>

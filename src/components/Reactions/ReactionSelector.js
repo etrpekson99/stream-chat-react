@@ -91,8 +91,7 @@ class ReactionSelector extends PureComponent {
     }));
   };
 
-  getUsersPerReaction = (reactions, type) =>
-    reactions && reactions.filter((item) => item.type === type);
+  getUsersPerReaction = (reactions, type) => reactions && reactions.filter((item) => item.type === type);
 
   getLatestUser = (reactions, type) => {
     const filtered = this.getUsersPerReaction(reactions, type);
@@ -108,10 +107,8 @@ class ReactionSelector extends PureComponent {
     return filtered && filtered.map((item) => item.user || 'NotFound');
   };
 
-  getContainerDimensions = () =>
-    this.reactionSelector.current.getBoundingClientRect();
-  getToolTipDimensions = () =>
-    this.reactionSelectorTooltip.current.getBoundingClientRect();
+  getContainerDimensions = () => this.reactionSelector.current.getBoundingClientRect();
+  getToolTipDimensions = () => this.reactionSelectorTooltip.current.getBoundingClientRect();
 
   setTooltipPosition = async (target) => {
     const container = await this.getContainerDimensions();
@@ -121,8 +118,7 @@ class ReactionSelector extends PureComponent {
     if (tooltip.width === container.width || tooltip.x < container.x) {
       position = 0;
     } else {
-      position =
-        target.left + target.width / 2 - container.left - tooltip.width / 2;
+      position = target.left + target.width / 2 - container.left - tooltip.width / 2;
     }
 
     await this.setState(() => ({
@@ -153,22 +149,15 @@ class ReactionSelector extends PureComponent {
           key={`item-${reaction.id}`}
           className="str-chat__message-reactions-list-item"
           data-text={reaction.id}
-          onClick={this.props.handleReaction.bind(this, reaction.id)}
-        >
+          onClick={this.props.handleReaction.bind(this, reaction.id)}>
           {Boolean(count) && this.props.detailedView && (
             <React.Fragment>
               <div
                 className="latest-user"
                 onMouseEnter={(e) => this.showTooltip(e, users)}
-                onMouseLeave={this.hideTooltip}
-              >
+                onMouseLeave={this.hideTooltip}>
                 {latestUser !== 'NotFound' ? (
-                  <Avatar
-                    image={latestUser.image}
-                    alt={latestUser.id}
-                    size={20}
-                    name={latestUser.id}
-                  />
+                  <Avatar image={latestUser.image} alt={latestUser.id} size={20} name={latestUser.id} />
                 ) : (
                   <div className="latest-user-not-found" />
                 )}
@@ -178,9 +167,7 @@ class ReactionSelector extends PureComponent {
           <NimbleEmoji emoji={reaction} {...emojiSetDef} data={emojiData} />
 
           {Boolean(count) && this.props.detailedView && (
-            <span className="str-chat__message-reactions-list-item__count">
-              {count || ''}
-            </span>
+            <span className="str-chat__message-reactions-list-item__count">{count || ''}</span>
           )}
         </li>
       );
@@ -203,11 +190,8 @@ class ReactionSelector extends PureComponent {
   render() {
     return (
       <div
-        className={`str-chat__reaction-selector ${
-          this.props.reverse ? 'str-chat__reaction-selector--reverse' : ''
-        }`}
-        ref={this.reactionSelector}
-      >
+        className={`str-chat__reaction-selector ${this.props.reverse ? 'str-chat__reaction-selector--reverse' : ''}`}
+        ref={this.reactionSelector}>
         {this.props.detailedView && (
           <div
             className="str-chat__reaction-selector-tooltip"
@@ -215,20 +199,14 @@ class ReactionSelector extends PureComponent {
             style={{
               visibility: this.state.showTooltip ? 'visible' : 'hidden',
               left: this.state.position,
-              opacity:
-                this.state.showTooltip && this.state.positionCaculated
-                  ? 1
-                  : 0.01,
-            }}
-          >
+              opacity: this.state.showTooltip && this.state.positionCaculated ? 1 : 0.01,
+            }}>
             <div className="arrow" style={{ left: this.state.arrowPosition }} />
             {this.renderUsers(this.state.users)}
           </div>
         )}
 
-        <ul className="str-chat__message-reactions-list">
-          {this.renderReactionItems()}
-        </ul>
+        <ul className="str-chat__message-reactions-list">{this.renderReactionItems()}</ul>
       </div>
     );
   }

@@ -14,17 +14,11 @@ const DateSeparator = ({ position, tDateTimeParser, formatDate, date }) => {
 
   return (
     <div className="str-chat__date-separator">
-      {(position === 'right' || position === 'center') && (
-        <hr className="str-chat__date-separator-line" />
-      )}
+      {(position === 'right' || position === 'center') && <hr className="str-chat__date-separator-line" />}
       <div className="str-chat__date-separator-date">
-        {formatDate
-          ? formatDate(date)
-          : tDateTimeParser(date.toISOString()).calendar()}
+        {formatDate ? formatDate(date) : tDateTimeParser(date.toISOString()).calendar()}
       </div>
-      {(position === 'left' || position === 'center') && (
-        <hr className="str-chat__date-separator-line" />
-      )}
+      {(position === 'left' || position === 'center') && <hr className="str-chat__date-separator-line" />}
     </div>
   );
 };

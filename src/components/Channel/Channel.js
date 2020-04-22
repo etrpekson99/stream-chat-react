@@ -8,11 +8,7 @@ import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import { logChatPromiseExecution } from 'stream-chat';
 
-import {
-  withChatContext,
-  ChannelContext,
-  withTranslationContext,
-} from '../../context';
+import { withChatContext, ChannelContext, withTranslationContext } from '../../context';
 import { Attachment } from '../Attachment';
 import { MessageSimple } from '../Message';
 import { LoadingIndicator, LoadingErrorIndicator } from '../Loading';
@@ -49,10 +45,7 @@ class Channel extends PureComponent {
      * Defaults to and accepts same props as: [LoadingErrorIndicator](https://getstream.github.io/stream-chat-react/#loadingerrorindicator)
      *
      * */
-    LoadingErrorIndicator: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.func,
-    ]),
+    LoadingErrorIndicator: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     /**
      * Loading indicator UI component. This will be shown on the screen until the messages are
      * being queried from channelœ. Once the messages are loaded, loading indicator is removed from the screen
@@ -161,14 +154,10 @@ class ChannelInner extends PureComponent {
     });
 
     // hard limit to prevent you from scrolling faster than 1 page per 2 seconds
-    this._loadMoreThreadFinishedDebounced = debounce(
-      this.loadMoreThreadFinished,
-      2000,
-      {
-        leading: true,
-        trailing: true,
-      },
-    );
+    this._loadMoreThreadFinishedDebounced = debounce(this.loadMoreThreadFinished, 2000, {
+      leading: true,
+      trailing: true,
+    });
 
     this._markReadThrottled = throttle(this.markRead, 500, {
       leading: true,
@@ -189,10 +178,7 @@ class ChannelInner extends PureComponent {
     client: PropTypes.object.isRequired,
     /** The loading indicator to use */
     LoadingIndicator: PropTypes.elementType,
-    LoadingErrorIndicator: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.func,
-    ]),
+    LoadingErrorIndicator: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   };
 
   async componentDidMount() {
@@ -324,8 +310,7 @@ class ChannelInner extends PureComponent {
 
     // update the Channel component state
     if (this.state.thread && updatedMessage.parent_id) {
-      extraState.threadMessages =
-        channel.state.threads[updatedMessage.parent_id] || [];
+      extraState.threadMessages = channel.state.threads[updatedMessage.parent_id] || [];
     }
     this.setState({ messages: channel.state.messages, ...extraState });
   };
@@ -376,12 +361,7 @@ class ChannelInner extends PureComponent {
 
   editMessage = (updatedMessage) => {
     if (this.props.doUpdateMessageRequest) {
-      return Promise.resolve(
-        this.props.doUpdateMessageRequest(
-          this.props.channel.cid,
-          updatedMessage,
-        ),
-      );
+      return Promise.resolve(this.props.doUpdateMessageRequest(this.props.channel.cid, updatedMessage));
     }
 
     return this.props.client.updateMessage(updatedMessage);
@@ -400,10 +380,7 @@ class ChannelInner extends PureComponent {
     try {
       let messageResponse;
       if (this.props.doSendMessageRequest) {
-        messageResponse = await this.props.doSendMessageRequest(
-          this.props.channel.cid,
-          messageData,
-        );
+        messageResponse = await this.props.doSendMessageRequest(this.props.channel.cid, messageData);
       } else {
         messageResponse = await this.props.channel.sendMessage(messageData);
       }
@@ -420,22 +397,12 @@ class ChannelInner extends PureComponent {
     }
   };
 
-  sendMessage = async ({
-    text,
-    attachments = [],
-    mentioned_users = [],
-    parent,
-  }) => {
+  sendMessage = async ({ text, attachments = [], mentioned_users = [], parent }) => {
     // remove error messages upon submit
     this.props.channel.state.filterErrorMessages();
 
     // create a local preview message to show in the UI
-    const messagePreview = this.createMessagePreview(
-      text,
-      attachments,
-      parent,
-      mentioned_users,
-    );
+    const messagePreview = this.createMessagePreview(text, attachments, parent, mentioned_users);
 
     // first we add the message to the UI
     this.updateMessage(messagePreview, {
@@ -465,11 +432,7 @@ class ChannelInner extends PureComponent {
       threadState['threadMessages'] = threadMessages;
     }
 
-    if (
-      this.state.thread &&
-      e.message &&
-      e.message.id === this.state.thread.id
-    ) {
+    if (this.state.thread && e.message && e.message.id === this.state.thread.id) {
       threadState['thread'] = channel.state.messageToImmutable(e.message);
     }
 
@@ -485,10 +448,7 @@ class ChannelInner extends PureComponent {
         mainChannelUpdated = false;
       }
 
-      if (
-        mainChannelUpdated &&
-        e.message.user.id !== this.props.client.userID
-      ) {
+      if (mainChannelUpdated && e.message.user.id !== this.props.client.userID) {
         if (Visibility.state() === 'visible') {
           this._markReadThrottled(channel);
         } else {
@@ -520,8 +480,7 @@ class ChannelInner extends PureComponent {
       if (!prevState.message || !prevState.message.length) {
         return;
       }
-      const lastMessageId =
-        prevState.messages[prevState.messages.length - 1].id;
+      const lastMessageId = prevState.messages[prevState.messages.length - 1].id;
       if (!prevState.eventHistory[lastMessageId])
         return {
           ...prevState,
@@ -608,21 +567,11 @@ class ChannelInner extends PureComponent {
     const textContent = e.target.innerHTML.replace('*', '');
     if (tagName === 'strong' && textContent[0] === '@') {
       const userName = textContent.replace('@', '');
-      const user = mentioned_users.find(
-        (user) => user.name === userName || user.id === userName,
-      );
-      if (
-        this.props.onMentionsHover &&
-        typeof this.props.onMentionsHover === 'function' &&
-        e.type === 'mouseover'
-      ) {
+      const user = mentioned_users.find((user) => user.name === userName || user.id === userName);
+      if (this.props.onMentionsHover && typeof this.props.onMentionsHover === 'function' && e.type === 'mouseover') {
         this.props.onMentionsHover(e, user);
       }
-      if (
-        this.props.onMentionsClick &&
-        e.type === 'click' &&
-        typeof this.props.onMentionsClick === 'function'
-      ) {
+      if (this.props.onMentionsClick && e.type === 'click' && typeof this.props.onMentionsClick === 'function') {
         this.props.onMentionsClick(e, user);
       }
     }
@@ -670,9 +619,7 @@ class ChannelInner extends PureComponent {
     const LoadingErrorIndicator = this.props.LoadingErrorIndicator;
 
     if (this.state.error) {
-      core = (
-        <LoadingErrorIndicator error={this.state.error}></LoadingErrorIndicator>
-      );
+      core = <LoadingErrorIndicator error={this.state.error}></LoadingErrorIndicator>;
     } else if (this.state.loading) {
       core = <LoadingIndicator size={25} isLoading={true} />;
     } else if (!this.props.channel || !this.props.channel.watch) {
@@ -685,11 +632,7 @@ class ChannelInner extends PureComponent {
       );
     }
 
-    return (
-      <div className={`str-chat str-chat-channel ${this.props.theme}`}>
-        {core}
-      </div>
-    );
+    return <div className={`str-chat str-chat-channel ${this.props.theme}`}>{core}</div>;
   }
 }
 

@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 import { logChatPromiseExecution } from 'stream-chat';
-import {
-  dataTransferItemsHaveFiles,
-  dataTransferItemsToFiles,
-} from 'react-file-utils';
+import { dataTransferItemsHaveFiles, dataTransferItemsToFiles } from 'react-file-utils';
 
 import MessageInputLarge from './MessageInputLarge';
 import SendButton from './SendButton';
@@ -16,9 +13,7 @@ import { withChannelContext } from '../../context';
 
 // polyfill for IE11 to make MessageInput functional
 if (!Element.prototype.matches) {
-  Element.prototype.matches =
-    Element.prototype.msMatchesSelector ||
-    Element.prototype.webkitMatchesSelector;
+  Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 }
 
 /**
@@ -179,10 +174,7 @@ class MessageInput extends PureComponent {
   };
 
   closeEmojiPicker = (e) => {
-    if (
-      this.emojiPickerRef.current &&
-      !this.emojiPickerRef.current.contains(e.target)
-    ) {
+    if (this.emojiPickerRef.current && !this.emojiPickerRef.current.contains(e.target)) {
       this.setState(
         {
           emojiPickerIsOpen: false,
@@ -210,10 +202,7 @@ class MessageInput extends PureComponent {
       const { selectionStart, selectionEnd } = textareaElement;
       newCursorPosition = selectionStart + textToInsert.length;
       return {
-        text:
-          prevText.slice(0, selectionStart) +
-          textToInsert +
-          prevText.slice(selectionEnd),
+        text: prevText.slice(0, selectionStart) + textToInsert + prevText.slice(selectionEnd),
       };
     });
 
@@ -261,10 +250,7 @@ class MessageInput extends PureComponent {
     const text = event.target.value;
     this.setState({ text });
     if (text) {
-      logChatPromiseExecution(
-        this.props.channel.keystroke(),
-        'start typing event',
-      );
+      logChatPromiseExecution(this.props.channel.keystroke(), 'start typing event');
     }
   };
 
@@ -281,8 +267,7 @@ class MessageInput extends PureComponent {
       trimmedMessage === '____' ||
       trimmedMessage === '__' ||
       trimmedMessage === '****';
-    const hasFiles =
-      this.state.imageOrder.length > 0 || this.state.fileOrder.length > 0;
+    const hasFiles = this.state.imageOrder.length > 0 || this.state.fileOrder.length > 0;
     if (isEmptyMessage && !hasFiles) {
       return;
     }
@@ -299,9 +284,7 @@ class MessageInput extends PureComponent {
         // TODO: show error to user that they should wait until image is uploaded
         return;
       }
-      const dupe = attachments.filter(
-        (attach) => image.url === attach.image_url,
-      );
+      const dupe = attachments.filter((attach) => image.url === attach.image_url);
       if (dupe.length >= 1) continue;
       attachments.push({
         type: 'image',
@@ -318,9 +301,7 @@ class MessageInput extends PureComponent {
         // TODO: show error to user that they should wait until image is uploaded
         return;
       }
-      const dupe = attachments.filter(
-        (attach) => upload.asset_url === attach.url,
-      );
+      const dupe = attachments.filter((attach) => upload.asset_url === attach.url);
       if (dupe.length >= 1) continue;
       attachments.push({
         type: 'file',
@@ -340,15 +321,10 @@ class MessageInput extends PureComponent {
       // TODO: Remove this line and show an error when submit fails
       this.props.clearEditingState();
 
-      const updateMessagePromise = this.props
-        .editMessage(updatedMessage)
-        .then(this.props.clearEditingState);
+      const updateMessagePromise = this.props.editMessage(updatedMessage).then(this.props.clearEditingState);
 
       logChatPromiseExecution(updateMessagePromise, 'update message');
-    } else if (
-      this.props.overrideSubmitHandler &&
-      typeof this.props.overrideSubmitHandler === 'function'
-    ) {
+    } else if (this.props.overrideSubmitHandler && typeof this.props.overrideSubmitHandler === 'function') {
       this.props.overrideSubmitHandler(
         {
           text,
@@ -417,10 +393,7 @@ class MessageInput extends PureComponent {
       const reader = new FileReader();
       reader.onload = (event) => {
         this.setState((prevState) => ({
-          imageUploads: prevState.imageUploads.setIn(
-            [id, 'previewUri'],
-            event.target.result,
-          ),
+          imageUploads: prevState.imageUploads.setIn([id, 'previewUri'], event.target.result),
         }));
       };
       reader.readAsDataURL(file);
@@ -459,10 +432,7 @@ class MessageInput extends PureComponent {
     response = {};
     try {
       if (this.props.doImageUploadRequest) {
-        response = await this.props.doImageUploadRequest(
-          file,
-          this.props.channel,
-        );
+        response = await this.props.doImageUploadRequest(file, this.props.channel);
       } else {
         response = await this.props.channel.sendImage(file);
       }
@@ -492,9 +462,7 @@ class MessageInput extends PureComponent {
       return;
     }
     this.setState((prevState) => ({
-      imageUploads: prevState.imageUploads
-        .setIn([id, 'state'], 'finished')
-        .setIn([id, 'url'], response.file),
+      imageUploads: prevState.imageUploads.setIn([id, 'state'], 'finished').setIn([id, 'url'], response.file),
     }));
   };
 
@@ -513,10 +481,7 @@ class MessageInput extends PureComponent {
 
     try {
       if (this.props.doFileUploadRequest) {
-        response = await this.props.doFileUploadRequest(
-          file,
-          this.props.channel,
-        );
+        response = await this.props.doFileUploadRequest(file, this.props.channel);
       } else {
         response = await this.props.channel.sendFile(file);
       }
@@ -544,9 +509,7 @@ class MessageInput extends PureComponent {
       }
     }
     this.setState((prevState) => ({
-      fileUploads: prevState.fileUploads
-        .setIn([id, 'state'], 'finished')
-        .setIn([id, 'url'], response.file),
+      fileUploads: prevState.fileUploads.setIn([id, 'state'], 'finished').setIn([id, 'url'], response.file),
     }));
   };
 

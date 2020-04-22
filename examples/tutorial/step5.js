@@ -1,14 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
-import {
-  Chat,
-  Channel,
-  Attachment,
-  ChannelHeader,
-  MessageList,
-  MessageInput,
-  Thread,
-} from 'stream-chat-react';
+import { Chat, Channel, Attachment, ChannelHeader, MessageList, MessageInput, Thread } from 'stream-chat-react';
 import { StreamChat } from 'stream-chat';
 
 import 'stream-chat-react/dist/css/index.css';
@@ -22,11 +14,7 @@ class MyAttachment extends React.Component {
       return (
         <div className="product">
           Product:
-          <a
-            href={this.props.attachment.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={this.props.attachment.url} target="_blank" rel="noopener noreferrer">
             <img src={this.props.attachment.image} height={'100px'} />
             <br />
             {this.props.attachment.name}
@@ -55,8 +43,7 @@ chatClient.setUser(
 
 const channel = chatClient.channel('team', 'godevs', {
   // add as many custom fields as you'd like
-  image:
-    'https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png',
+  image: 'https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png',
   name: 'Talk about Go',
 });
 
@@ -64,16 +51,13 @@ const attachments = [
   {
     type: 'product',
     name: 'iPhone',
-    url:
-      'https://www.amazon.com/Apple-iPhone-Fully-Unlocked-256GB/dp/B0775451TT/',
-    image:
-      'https://images-na.ssl-images-amazon.com/images/I/71k0cry-ceL._SL1500_.jpg',
+    url: 'https://www.amazon.com/Apple-iPhone-Fully-Unlocked-256GB/dp/B0775451TT/',
+    image: 'https://images-na.ssl-images-amazon.com/images/I/71k0cry-ceL._SL1500_.jpg',
   },
 ];
 
 channel.sendMessage({
-  text:
-    'Your selected product is out of stock, would you like to select one of these alternatives?',
+  text: 'Your selected product is out of stock, would you like to select one of these alternatives?',
   attachments,
 });
 

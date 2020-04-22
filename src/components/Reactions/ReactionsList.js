@@ -33,28 +33,16 @@ class ReactionsList extends React.Component {
       if (reactions[item.type] === undefined) {
         return (reactionsByType[item.type] = [item]);
       } else {
-        return (reactionsByType[item.type] = [
-          ...reactionsByType[item.type],
-          item,
-        ]);
+        return (reactionsByType[item.type] = [...reactionsByType[item.type], item]);
       }
     });
 
-    const reactionsEmojis = this.props.reactionOptions.reduce(
-      (acc, cur) => ({ ...acc, [cur.id]: cur }),
-      {},
-    );
+    const reactionsEmojis = this.props.reactionOptions.reduce((acc, cur) => ({ ...acc, [cur.id]: cur }), {});
 
     return Object.keys(reactionsByType).map((type) =>
       reactionsEmojis[type] ? (
         <li key={reactionsEmojis[type].id}>
-          <NimbleEmoji
-            emoji={reactionsEmojis[type]}
-            {...emojiSetDef}
-            size={16}
-            data={emojiData}
-          />{' '}
-          &nbsp;
+          <NimbleEmoji emoji={reactionsEmojis[type]} {...emojiSetDef} size={16} data={emojiData} /> &nbsp;
         </li>
       ) : null,
     );
@@ -63,15 +51,9 @@ class ReactionsList extends React.Component {
   _getReactionCount = () => {
     const reaction_counts = this.props.reaction_counts;
     let count = null;
-    if (
-      reaction_counts !== null &&
-      reaction_counts !== undefined &&
-      Object.keys(reaction_counts).length > 0
-    ) {
+    if (reaction_counts !== null && reaction_counts !== undefined && Object.keys(reaction_counts).length > 0) {
       count = 0;
-      Object.keys(reaction_counts).map(
-        (key) => (count += reaction_counts[key]),
-      );
+      Object.keys(reaction_counts).map((key) => (count += reaction_counts[key]));
     }
     return count;
   };
@@ -79,18 +61,13 @@ class ReactionsList extends React.Component {
   render() {
     return (
       <div
-        className={`str-chat__reaction-list ${
-          this.props.reverse ? 'str-chat__reaction-list--reverse' : ''
-        }`}
+        className={`str-chat__reaction-list ${this.props.reverse ? 'str-chat__reaction-list--reverse' : ''}`}
         onClick={this.props.onClick}
-        ref={this.reactionList}
-      >
+        ref={this.reactionList}>
         <ul>
           {this._renderReactions(this.props.reactions)}
           <li>
-            <span className="str-chat__reaction-list--counter">
-              {this._getReactionCount()}
-            </span>
+            <span className="str-chat__reaction-list--counter">{this._getReactionCount()}</span>
           </li>
         </ul>
       </div>

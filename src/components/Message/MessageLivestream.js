@@ -46,11 +46,7 @@ class MessageLivestream extends React.PureComponent {
      * @see See [Message HOC](https://getstream.github.io/stream-chat-react/#message) for example
      *
      * */
-    Message: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.func,
-      PropTypes.object,
-    ]).isRequired,
+    Message: PropTypes.oneOfType([PropTypes.node, PropTypes.func, PropTypes.object]).isRequired,
     /** render HTML instead of markdown. Posting HTML is only allowed server-side */
     unsafeHTML: PropTypes.bool,
     /** If its parent message in thread. */
@@ -160,11 +156,7 @@ class MessageLivestream extends React.PureComponent {
   };
 
   hideReactions = (e) => {
-    if (
-      !this.reactionSelectorRef.current.reactionSelector.current.contains(
-        e.target,
-      )
-    ) {
+    if (!this.reactionSelectorRef.current.reactionSelector.current.contains(e.target)) {
       this.setState({
         reactionSelectorOpen: false,
       });
@@ -217,13 +209,9 @@ class MessageLivestream extends React.PureComponent {
       t,
       tDateTimeParser,
     } = this.props;
-    const hasAttachment = Boolean(
-      message.attachments && message.attachments.length,
-    );
+    const hasAttachment = Boolean(message.attachments && message.attachments.length);
 
-    let galleryImages = message.attachments.filter(
-      (item) => item.type === 'image',
-    );
+    let galleryImages = message.attachments.filter((item) => item.type === 'image');
     let attachments = message.attachments;
     if (galleryImages.length > 1) {
       attachments = message.attachments.filter((item) => item.type !== 'image');
@@ -247,15 +235,10 @@ class MessageLivestream extends React.PureComponent {
       return (
         <div
           className={`str-chat__message-team str-chat__message-team--${groupStyles[0]} str-chat__message-team--editing`}
-          onMouseLeave={this.onMouseLeaveMessage}
-        >
+          onMouseLeave={this.onMouseLeaveMessage}>
           {(groupStyles[0] === 'top' || groupStyles[0] === 'single') && (
             <div className="str-chat__message-team-meta">
-              <Avatar
-                image={message.user.image}
-                name={message.user.name || message.user.id}
-                size={40}
-              />
+              <Avatar image={message.user.image} name={message.user.name || message.user.id} size={40} />
             </div>
           )}
           <MessageInput
@@ -273,15 +256,10 @@ class MessageLivestream extends React.PureComponent {
         <div
           className={`str-chat__message-livestream str-chat__message-livestream--${
             groupStyles[0]
-          } str-chat__message-livestream--${
-            message.type
-          } str-chat__message-livestream--${message.status} ${
-            initialMessage
-              ? 'str-chat__message-livestream--initial-message'
-              : ''
+          } str-chat__message-livestream--${message.type} str-chat__message-livestream--${message.status} ${
+            initialMessage ? 'str-chat__message-livestream--initial-message' : ''
           }`}
-          onMouseLeave={this.onMouseLeaveMessage}
-        >
+          onMouseLeave={this.onMouseLeaveMessage}>
           {this.state.reactionSelectorOpen && (
             <ReactionSelector
               reverse={false}
@@ -346,50 +324,30 @@ class MessageLivestream extends React.PureComponent {
             )}
 
           <div className={`str-chat__message-livestream-left`}>
-            <Avatar
-              image={message.user.image}
-              name={message.user.name || message.user.id}
-              size={30}
-            />
+            <Avatar image={message.user.image} name={message.user.name || message.user.id} size={30} />
           </div>
           <div className={`str-chat__message-livestream-right`}>
             <div className={`str-chat__message-livestream-content`}>
               <div className="str-chat__message-livestream-author">
                 <strong>{message.user.name || message.user.id}</strong>
                 {message.type === 'error' && (
-                  <div className="str-chat__message-team-error-header">
-                    {t('Only visible to you')}
-                  </div>
+                  <div className="str-chat__message-team-error-header">{t('Only visible to you')}</div>
                 )}
               </div>
 
               <div
-                className={
-                  isOnlyEmojis(message.text)
-                    ? 'str-chat__message-livestream-text--is-emoji'
-                    : ''
-                }
+                className={isOnlyEmojis(message.text) ? 'str-chat__message-livestream-text--is-emoji' : ''}
                 onMouseOver={onMentionsHoverMessage}
-                onClick={onMentionsClickMessage}
-              >
-                {message.type !== 'error' &&
-                  message.status !== 'failed' &&
-                  !unsafeHTML &&
-                  renderText(message)}
+                onClick={onMentionsClickMessage}>
+                {message.type !== 'error' && message.status !== 'failed' && !unsafeHTML && renderText(message)}
 
-                {message.type !== 'error' &&
-                  message.status !== 'failed' &&
-                  unsafeHTML && (
-                    <div dangerouslySetInnerHTML={{ __html: message.html }} />
-                  )}
+                {message.type !== 'error' && message.status !== 'failed' && unsafeHTML && (
+                  <div dangerouslySetInnerHTML={{ __html: message.html }} />
+                )}
 
                 {message.type === 'error' && !message.command && (
                   <p>
-                    <svg
-                      width="14"
-                      height="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M7 0a7 7 0 1 0 0 14A7 7 0 0 0 7 0zm.875 10.938a.438.438 0 0 1-.438.437h-.875a.438.438 0 0 1-.437-.438v-.874c0-.242.196-.438.438-.438h.875c.241 0 .437.196.437.438v.874zm0-2.626a.438.438 0 0 1-.438.438h-.875a.438.438 0 0 1-.437-.438v-5.25c0-.241.196-.437.438-.437h.875c.241 0 .437.196.437.438v5.25z"
                         fill="#EA152F"
@@ -402,11 +360,7 @@ class MessageLivestream extends React.PureComponent {
 
                 {message.type === 'error' && message.command && (
                   <p>
-                    <svg
-                      width="14"
-                      height="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M7 0a7 7 0 1 0 0 14A7 7 0 0 0 7 0zm.875 10.938a.438.438 0 0 1-.438.437h-.875a.438.438 0 0 1-.437-.438v-.874c0-.242.196-.438.438-.438h.875c.241 0 .437.196.437.438v.874zm0-2.626a.438.438 0 0 1-.438.438h-.875a.438.438 0 0 1-.437-.438v-5.25c0-.241.196-.437.438-.437h.875c.241 0 .437.196.437.438v5.25z"
                         fill="#EA152F"
@@ -419,11 +373,7 @@ class MessageLivestream extends React.PureComponent {
                 )}
                 {message.status === 'failed' && (
                   <p onClick={handleRetry.bind(this, message)}>
-                    <svg
-                      width="14"
-                      height="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M7 0a7 7 0 1 0 0 14A7 7 0 0 0 7 0zm.875 10.938a.438.438 0 0 1-.438.437h-.875a.438.438 0 0 1-.437-.438v-.874c0-.242.196-.438.438-.438h.875c.241 0 .437.196.437.438v.874zm0-2.626a.438.438 0 0 1-.438.438h-.875a.438.438 0 0 1-.437-.438v-5.25c0-.241.196-.437.438-.437h.875c.241 0 .437.196.437.438v5.25z"
                         fill="#EA152F"
@@ -437,11 +387,7 @@ class MessageLivestream extends React.PureComponent {
 
               {hasAttachment &&
                 attachments.map((attachment, index) => (
-                  <Attachment
-                    key={`${message.id}-${index}`}
-                    attachment={attachment}
-                    actionHandler={handleAction}
-                  />
+                  <Attachment key={`${message.id}-${index}`} attachment={attachment} actionHandler={handleAction} />
                 ))}
 
               {galleryImages.length !== 0 && <Gallery images={galleryImages} />}
@@ -453,10 +399,7 @@ class MessageLivestream extends React.PureComponent {
               />
 
               {!initialMessage && (
-                <MessageRepliesCountButton
-                  onClick={handleOpenThread}
-                  reply_count={message.reply_count}
-                />
+                <MessageRepliesCountButton onClick={handleOpenThread} reply_count={message.reply_count} />
               )}
             </div>
           </div>

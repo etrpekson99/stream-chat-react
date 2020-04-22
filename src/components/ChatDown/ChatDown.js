@@ -18,9 +18,7 @@ const ChatDown = ({ image, type, text, t }) => (
     <div className="str-chat__down-main">
       <img src={image} />
       <h1>{type}</h1>
-      <h3>
-        {text || t('Error connecting to chat, refresh the page to try again.')}
-      </h3>
+      <h3>{text || t('Error connecting to chat, refresh the page to try again.')}</h3>
     </div>
   </div>
 );

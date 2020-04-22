@@ -9,30 +9,19 @@ export class Item extends React.Component {
   };
 
   render() {
-    const {
-      component: Component,
-      style,
-      onClickHandler,
-      item,
-      selected,
-      className,
-      innerRef,
-    } = this.props;
+    const { component: Component, style, onClickHandler, item, selected, className, innerRef } = this.props;
 
     return (
       <li className={`rta__item ${className || ''}`} style={style}>
         <div
-          className={`rta__entity ${
-            selected === true ? 'rta__entity--selected' : ''
-          }`}
+          className={`rta__entity ${selected === true ? 'rta__entity--selected' : ''}`}
           role="button"
           tabIndex={0}
           onClick={onClickHandler}
           onFocus={this.selectItem}
           onMouseEnter={this.selectItem}
           /* $FlowFixMe */
-          ref={innerRef}
-        >
+          ref={innerRef}>
           <Component selected={selected} entity={item} />
         </div>
       </li>

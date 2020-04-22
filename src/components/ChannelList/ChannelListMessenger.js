@@ -31,10 +31,7 @@ class ChannelListMessenger extends PureComponent {
      * [ChatDown](https://github.com/GetStream/stream-chat-react/blob/master/src/components/ChatDown.js)
      *
      */
-    LoadingErrorIndicator: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.func,
-    ]),
+    LoadingErrorIndicator: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   };
 
   static defaultProps = {
@@ -44,12 +41,7 @@ class ChannelListMessenger extends PureComponent {
   };
 
   render() {
-    const {
-      error,
-      loading,
-      LoadingErrorIndicator,
-      LoadingIndicator,
-    } = this.props;
+    const { error, loading, LoadingErrorIndicator, LoadingIndicator } = this.props;
     if (error) {
       return <LoadingErrorIndicator type="Connection Error" />;
     } else if (loading) {
@@ -57,9 +49,7 @@ class ChannelListMessenger extends PureComponent {
     } else {
       return (
         <div className="str-chat__channel-list-messenger">
-          <div className="str-chat__channel-list-messenger__main">
-            {this.props.children}
-          </div>
+          <div className="str-chat__channel-list-messenger__main">{this.props.children}</div>
         </div>
       );
     }

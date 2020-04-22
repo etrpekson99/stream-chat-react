@@ -9,11 +9,7 @@ function handleReaction(reaction) {
   console.log('reaction', reaction);
 }
 <div className="str-chat" style={{ height: '100px' }}>
-  <ReactionSelector
-    detailedView={true}
-    handleReaction={handleReaction}
-    message={data.message}
-  />
+  <ReactionSelector detailedView={true} handleReaction={handleReaction} message={data.message} />
 </div>;
 ```
 
@@ -29,11 +25,6 @@ function handleReaction(reaction) {
 }
 
 <div className="str-chat" style={{ height: '100px' }}>
-  <ReactionSelector
-    detailedView={true}
-    handleReaction={handleReaction}
-    message={data.message}
-    direction={'right'}
-  />
+  <ReactionSelector detailedView={true} handleReaction={handleReaction} message={data.message} direction={'right'} />
 </div>;
 ```

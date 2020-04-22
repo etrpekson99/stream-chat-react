@@ -79,10 +79,7 @@ class ChatAutoComplete extends PureComponent {
       '@': {
         dataProvider: (q) => {
           const matchingUsers = this.props.users.filter((user) => {
-            if (
-              user.name !== undefined &&
-              user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1
-            ) {
+            if (user.name !== undefined && user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1) {
               return true;
             } else if (user.id.toLowerCase().indexOf(q.toLowerCase()) !== -1) {
               return true;
@@ -105,9 +102,7 @@ class ChatAutoComplete extends PureComponent {
           if (text.indexOf('/') !== 0) {
             return [];
           }
-          const selectedCommands = this.props.commands.filter(
-            (c) => c.name.indexOf(q) !== -1,
-          );
+          const selectedCommands = this.props.commands.filter((c) => c.name.indexOf(q) !== -1);
 
           // sort alphabetically unless the you're matching the first char
           selectedCommands.sort((a, b) => {

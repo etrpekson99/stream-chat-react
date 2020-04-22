@@ -195,5 +195,4 @@ const fullBrowserBundle = {
   ],
 };
 
-export default () =>
-  process.env.ROLLUP_WATCH ? [normalBundle] : [normalBundle, fullBrowserBundle];
+export default () => (process.env.ROLLUP_WATCH ? [normalBundle] : [normalBundle, fullBrowserBundle]);

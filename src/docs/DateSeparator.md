@@ -40,22 +40,8 @@ function formatDate(d) {
 }
 
 <React.Fragment>
-  <DateSeparator
-    formatDate={formatDate}
-    date={date}
-    {...data.translationContext}
-  />
-  <DateSeparator
-    formatDate={formatDate}
-    date={date}
-    position="center"
-    {...data.translationContext}
-  />
-  <DateSeparator
-    formatDate={formatDate}
-    date={date}
-    position="left"
-    {...data.translationContext}
-  />
+  <DateSeparator formatDate={formatDate} date={date} {...data.translationContext} />
+  <DateSeparator formatDate={formatDate} date={date} position="center" {...data.translationContext} />
+  <DateSeparator formatDate={formatDate} date={date} position="left" {...data.translationContext} />
 </React.Fragment>;
 ```

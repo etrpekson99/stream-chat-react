@@ -7,9 +7,7 @@ const CommandItem = ({ entity }) => (
       <strong>{entity.name}</strong> {entity.args}
     </span>
     <br />
-    <span className="str-chat__slash-command-description">
-      {entity.description}
-    </span>
+    <span className="str-chat__slash-command-description">{entity.description}</span>
   </div>
 );
 

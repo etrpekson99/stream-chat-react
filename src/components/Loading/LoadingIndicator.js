@@ -14,25 +14,12 @@ import svg from '../../assets/str-chat__loading-indicator.svg';
  */
 
 const LoadingIndicator = ({ size = 15, color = '#006CFF' }) => (
-  <div
-    className={'str-chat__loading-indicator ' + color}
-    style={{ width: size, height: size }}
-  >
-    <svg
-      width={size}
-      height={size}
-      viewBox={`0 0 30 30`}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+  <div className={'str-chat__loading-indicator ' + color} style={{ width: size, height: size }}>
+    <svg width={size} height={size} viewBox={`0 0 30 30`} xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a">
           <stop stopColor="#FFF" stopOpacity="0" offset="0%" />
-          <stop
-            offset="100%"
-            stopColor={color}
-            stopOpacity="1"
-            style={{ stopColor: color }}
-          />
+          <stop offset="100%" stopColor={color} stopOpacity="1" style={{ stopColor: color }} />
         </linearGradient>
       </defs>
       <path

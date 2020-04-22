@@ -12,9 +12,7 @@ import { withTranslationContext } from '../../context';
 const LoadingErrorIndicator = ({ error, t }) => {
   if (!error) return null;
 
-  return (
-    <div>{t('Error: {{ errorMessage }}', { errorMessage: error.message })}</div>
-  );
+  return <div>{t('Error: {{ errorMessage }}', { errorMessage: error.message })}</div>;
 };
 
 LoadingErrorIndicator.defaultProps = {
@@ -23,10 +21,7 @@ LoadingErrorIndicator.defaultProps = {
 
 LoadingErrorIndicator.propTypes = {
   /** Error object */
-  error: PropTypes.oneOfType([
-    PropTypes.shape({ message: PropTypes.string }),
-    PropTypes.bool,
-  ]),
+  error: PropTypes.oneOfType([PropTypes.shape({ message: PropTypes.string }), PropTypes.bool]),
 };
 
 export default withTranslationContext(React.memo(LoadingErrorIndicator));

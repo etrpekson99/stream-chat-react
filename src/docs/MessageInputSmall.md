@@ -1,11 +1,5 @@
 ```js
-import {
-  Chat,
-  Channel,
-  MessageTeam,
-  MessageInput,
-  MessageInputSmall,
-} from '../components';
+import { Chat, Channel, MessageTeam, MessageInput, MessageInputSmall } from '../components';
 
 const data = require('./data');
 

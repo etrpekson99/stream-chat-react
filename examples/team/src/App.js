@@ -56,14 +56,11 @@ class App extends Component {
           sort={sort}
           options={options}
           List={ChannelListTeam}
-          Paginator={(props) => (
-            <InfiniteScrollPaginator threshold={300} {...props} />
-          )}
+          Paginator={(props) => <InfiniteScrollPaginator threshold={300} {...props} />}
         />
         <Channel
           onMentionsHover={(e, user) => console.log(e, user)}
-          onMentionsClick={(e, user) => console.log(e, user)}
-        >
+          onMentionsClick={(e, user) => console.log(e, user)}>
           <Window>
             <ChannelHeader />
             <MessageList Message={MessageTeam} />

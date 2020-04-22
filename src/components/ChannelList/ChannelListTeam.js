@@ -40,10 +40,7 @@ class ChannelListTeam extends PureComponent {
      * [ChatDown](https://github.com/GetStream/stream-chat-react/blob/master/src/components/ChatDown.js)
      *
      */
-    LoadingErrorIndicator: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.func,
-    ]),
+    LoadingErrorIndicator: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   };
 
   static defaultProps = {
@@ -73,9 +70,7 @@ class ChannelListTeam extends PureComponent {
               <div className="str-chat__channel-list-team__header--left">
                 <Avatar
                   source={this.props.client.user.image}
-                  name={
-                    this.props.client.user.name || this.props.client.user.id
-                  }
+                  name={this.props.client.user.name || this.props.client.user.id}
                   size={40}
                 />
               </div>
@@ -83,9 +78,7 @@ class ChannelListTeam extends PureComponent {
                 <div className="str-chat__channel-list-team__header--title">
                   {this.props.client.user.name || this.props.client.user.id}
                 </div>
-                <div
-                  className={`str-chat__channel-list-team__header--status ${this.props.client.user.status}`}
-                >
+                <div className={`str-chat__channel-list-team__header--status ${this.props.client.user.status}`}>
                   {this.props.client.user.status}
                 </div>
               </div>

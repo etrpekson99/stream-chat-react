@@ -38,20 +38,14 @@ class ChannelPreviewCompact extends React.PureComponent {
     this.channelPreviewButton.current.blur();
   };
   render() {
-    const unreadClass =
-      this.props.unread_count >= 1
-        ? 'str-chat__channel-preview-compact--unread'
-        : '';
-    const activeClass = this.props.active
-      ? 'str-chat__channel-preview-compact--active'
-      : '';
+    const unreadClass = this.props.unread_count >= 1 ? 'str-chat__channel-preview-compact--unread' : '';
+    const activeClass = this.props.active ? 'str-chat__channel-preview-compact--active' : '';
     const name = this.props.channel.data.name || this.props.channel.cid;
     return (
       <button
         onClick={this.onSelectChannel}
         ref={this.channelPreviewButton}
-        className={`str-chat__channel-preview-compact ${unreadClass} ${activeClass}`}
-      >
+        className={`str-chat__channel-preview-compact ${unreadClass} ${activeClass}`}>
         <div className="str-chat__channel-preview-compact--left">
           <Avatar image={this.props.channel.data.image} size={20} />
         </div>

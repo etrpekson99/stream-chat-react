@@ -1,12 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
-import {
-  Chat,
-  Channel,
-  ChannelHeader,
-  MessageList,
-  MessageInput,
-} from 'stream-chat-react';
+import { Chat, Channel, ChannelHeader, MessageList, MessageInput } from 'stream-chat-react';
 import { StreamChat } from 'stream-chat';
 
 import 'stream-chat-react/dist/css/index.css';
@@ -25,8 +19,7 @@ chatClient.setUser(
 
 const channel = chatClient.channel('team', 'godevs', {
   // add as many custom fields as you'd like
-  image:
-    'https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png',
+  image: 'https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png',
   name: 'Talk about G o',
 });
 

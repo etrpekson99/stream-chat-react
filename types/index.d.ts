@@ -44,10 +44,7 @@ export interface ChannelContextValue extends ChatContextValue {
   threadLoadingMore?: boolean;
   threadHasMore?: boolean;
   eventHistory?: {
-    [lastMessageId: string]: (
-      | Client.MemberAddedEvent
-      | Client.MemberRemovedEvent
-    )[];
+    [lastMessageId: string]: (Client.MemberAddedEvent | Client.MemberRemovedEvent)[];
   };
   thread?: Client.MessageResponse | boolean;
   threadMessages?: Client.MessageResponse[];
@@ -58,10 +55,7 @@ export interface ChannelContextValue extends ChatContextValue {
   sendMessage?(message: Client.Message): void;
   editMessage?(updatedMessage: Client.Message): void;
   /** Via Context: The function to update a message, handled by the Channel component */
-  updateMessage?(
-    updatedMessage: Client.MessageResponse,
-    extraState: object,
-  ): void;
+  updateMessage?(updatedMessage: Client.MessageResponse, extraState: object): void;
   /** Function executed when user clicks on link to open thread */
   retrySendMessage?(message: Client.Message): void;
   removeMessage?(updatedMessage: Client.MessageResponse): void;
@@ -69,10 +63,7 @@ export interface ChannelContextValue extends ChatContextValue {
   onMentionsClick?(e: React.MouseEvent, user: Client.UserResponse): void;
   /** Function to be called when hovering over a @mention. Function has access to the DOM event and the target user object */
   onMentionsHover?(e: React.MouseEvent, user: Client.UserResponse): void;
-  openThread?(
-    message: Client.MessageResponse,
-    event: React.SyntheticEvent,
-  ): void;
+  openThread?(message: Client.MessageResponse, event: React.SyntheticEvent): void;
 
   loadMore?(): void;
   // thread related
@@ -100,9 +91,7 @@ export interface ChatProps {
   i18nInstance?: Streami18n;
 }
 
-export interface ChannelProps
-  extends ChatContextValue,
-    TranslationContextValue {
+export interface ChannelProps extends ChatContextValue, TranslationContextValue {
   /** The loading indicator to use */
   LoadingIndicator?: React.ElementType<LoadingIndicatorProps>;
   LoadingErrorIndicator?: React.ElementType<LoadingErrorIndicatorProps>;
@@ -119,15 +108,9 @@ export interface ChannelProps
   onMentionsHover?(e: React.MouseEvent, user: Client.UserResponse): void;
 
   /** Override send message request (Advanced usage only) */
-  doSendMessageRequest?(
-    channelId: string,
-    message: Client.Message,
-  ): Promise<Client.MessageResponse> | void;
+  doSendMessageRequest?(channelId: string, message: Client.Message): Promise<Client.MessageResponse> | void;
   /** Override update(edit) message request (Advanced usage only) */
-  doUpdateMessageRequest?(
-    channelId: string,
-    updatedMessage: Client.Message,
-  ): Promise<Client.MessageResponse> | void;
+  doUpdateMessageRequest?(channelId: string, updatedMessage: Client.Message): Promise<Client.MessageResponse> | void;
 }
 
 export interface ChannelListProps extends ChatContextValue {
@@ -139,10 +122,7 @@ export interface ChannelListProps extends ChatContextValue {
   List?: React.ElementType<ChannelListUIComponentProps>;
   Paginator?: React.ElementType<PaginatorProps>;
 
-  onMessageNew?(
-    thisArg: React.Component<ChannelListProps>,
-    e: Client.Event<Client.MessageNewEvent>,
-  ): any;
+  onMessageNew?(thisArg: React.Component<ChannelListProps>, e: Client.Event<Client.MessageNewEvent>): any;
   /** Function that overrides default behaviour when users gets added to a channel */
   onAddedToChannel?(
     thisArg: React.Component<ChannelListProps>,
@@ -153,18 +133,9 @@ export interface ChannelListProps extends ChatContextValue {
     thisArg: React.Component<ChannelListProps>,
     e: Client.Event<Client.NotificationRemovedFromChannelEvent>,
   ): any;
-  onChannelUpdated?(
-    thisArg: React.Component<ChannelListProps>,
-    e: Client.Event<Client.ChannelUpdatedEvent>,
-  ): any;
-  onChannelDeleted?(
-    thisArg: React.Component<ChannelListProps>,
-    e: Client.Event<Client.ChannelDeletedEvent>,
-  ): void;
-  onChannelTruncated?(
-    thisArg: React.Component<ChannelListProps>,
-    e: Client.Event<Client.ChannelTruncatedEvent>,
-  ): void;
+  onChannelUpdated?(thisArg: React.Component<ChannelListProps>, e: Client.Event<Client.ChannelUpdatedEvent>): any;
+  onChannelDeleted?(thisArg: React.Component<ChannelListProps>, e: Client.Event<Client.ChannelDeletedEvent>): void;
+  onChannelTruncated?(thisArg: React.Component<ChannelListProps>, e: Client.Event<Client.ChannelTruncatedEvent>): void;
   setActiveChannelOnMount?: boolean;
   /** Object containing query filters */
   filters: object;
@@ -305,9 +276,7 @@ export interface SendButtonProps {
   sendMessage?(message: Client.Message): void;
 }
 
-export interface MessageListProps
-  extends ChannelContextValue,
-    TranslationContextValue {
+export interface MessageListProps extends ChannelContextValue, TranslationContextValue {
   /** Typing indicator component to render  */
   TypingIndicator?: React.ElementType<TypingIndicatorProps>;
   /** Component to render at the top of the MessageList */
@@ -331,10 +300,7 @@ export interface MessageListProps
   additionalMessageInputProps?: object;
 }
 
-export interface ChannelHeaderProps
-  extends ChannelContextValue,
-    TranslationContextValue,
-    ChatContextValue {
+export interface ChannelHeaderProps extends ChannelContextValue, TranslationContextValue, ChatContextValue {
   /** Set title manually */
   title?: string;
   /** Show a little indicator that the channel is live right now */
@@ -411,10 +377,7 @@ export interface MessageInputState {
   mentioned_users?: string[];
   numberOfUploads?: number;
 }
-export interface MessageInputUIComponentProps
-  extends MessageInputProps,
-    MessageInputState,
-    TranslationContextValue {
+export interface MessageInputUIComponentProps extends MessageInputProps, MessageInputState, TranslationContextValue {
   uploadNewFiles?(files: File[]): void;
   removeImage?(id: string): void;
   uploadImage?(id: string): void;
@@ -440,11 +403,7 @@ export interface AttachmentUIComponentProps {
 		The handler function to call when an action is selected on an attachment.
 		Examples include canceling a \/giphy command or shuffling the results.
 		*/
-  actionHandler?(
-    name: string,
-    value: string,
-    event: React.BaseSyntheticEvent,
-  ): void;
+  actionHandler?(name: string, value: string, event: React.BaseSyntheticEvent): void;
 }
 
 export interface MessageProps extends TranslationContextValue {
@@ -477,10 +436,7 @@ export interface MessageProps extends TranslationContextValue {
   watchers?: SeamlessImmutable.Immutable<{ [user_id: string]: Client.User }>;
   addNotification?(notificationText: string, type: string): any;
   setEditingState?(message: Client.MessageResponse): any;
-  updateMessage?(
-    updatedMessage: Client.MessageResponse,
-    extraState: object,
-  ): void;
+  updateMessage?(updatedMessage: Client.MessageResponse, extraState: object): void;
   /** Function executed when user clicks on link to open thread */
   retrySendMessage?(message: Client.Message): void;
   removeMessage?(updatedMessage: Client.MessageResponse): void;
@@ -488,48 +444,31 @@ export interface MessageProps extends TranslationContextValue {
   onMentionsClick?(e: React.MouseEvent, user: Client.UserResponse): void;
   /** Function to be called when hovering over a @mention. Function has access to the DOM event and the target user object */
   onMentionsHover?(e: React.MouseEvent, user: Client.UserResponse): void;
-  openThread?(
-    message: Client.MessageResponse,
-    event: React.SyntheticEvent,
-  ): void;
+  openThread?(message: Client.MessageResponse, event: React.SyntheticEvent): void;
   additionalMessageInputProps?: object;
   clearEditingState?(e?: React.MouseEvent): void;
 }
 
-export interface MessageUIComponentProps
-  extends MessageProps,
-    TranslationContextValue {
+export interface MessageUIComponentProps extends MessageProps, TranslationContextValue {
   actionsEnabled?: boolean;
   handleReaction?(reactionType: string, event?: React.BaseSyntheticEvent): void;
   handleEdit?(event?: React.BaseSyntheticEvent): void;
   handleDelete?(event?: React.BaseSyntheticEvent): void;
   handleFlag?(event?: React.BaseSyntheticEvent): void;
   handleMute?(event?: React.BaseSyntheticEvent): void;
-  handleAction?(
-    name: string,
-    value: string,
-    event: React.BaseSyntheticEvent,
-  ): void;
+  handleAction?(name: string, value: string, event: React.BaseSyntheticEvent): void;
   handleRetry?(message: Client.Message): void;
   isMyMessage?(message: Client.MessageResponse): boolean;
   handleOpenThread?(event: React.BaseSyntheticEvent): void;
-  onMentionsClickMessage?(
-    event: React.MouseEvent,
-    user: Client.UserResponse,
-  ): void;
-  onMentionsHoverMessage?(
-    event: React.MouseEvent,
-    user: Client.UserResponse,
-  ): void;
+  onMentionsClickMessage?(event: React.MouseEvent, user: Client.UserResponse): void;
+  onMentionsHoverMessage?(event: React.MouseEvent, user: Client.UserResponse): void;
   getMessageActions(): Array<string>;
   channelConfig?: object;
   threadList?: boolean;
   additionalMessageInputProps?: object;
 }
 
-export interface ThreadProps
-  extends ChannelContextValue,
-    TranslationContextValue {
+export interface ThreadProps extends ChannelContextValue, TranslationContextValue {
   /** Display the thread on 100% width of it's container. Useful for mobile style view */
   fullWidth?: boolean;
   /** Make input focus on mounting thread */
@@ -633,11 +572,7 @@ export interface AttachmentActionsProps {
   id: string;
   text: string;
   actions: Client.Action[];
-  actionHandler?(
-    name: string,
-    value: string,
-    event: React.BaseSyntheticEvent,
-  ): void;
+  actionHandler?(name: string, value: string, event: React.BaseSyntheticEvent): void;
 }
 
 export interface AudioProps {
@@ -686,9 +621,7 @@ export interface CommandItemProps {
   };
 }
 
-export interface EditMessageFormProps
-  extends MessageInputUIComponentProps,
-    TranslationContextValue {}
+export interface EditMessageFormProps extends MessageInputUIComponentProps, TranslationContextValue {}
 export interface EmoticonItemProps {
   entity: {
     name: string;
@@ -747,10 +680,7 @@ export interface ReverseInfiniteScrollProps {
   threshold?: number;
   className?: string;
   /** The function is called when the list scrolls */
-  listenToScroll?(
-    standardOffset: string | number,
-    reverseOffset: string | number,
-  ): any;
+  listenToScroll?(standardOffset: string | number, reverseOffset: string | number): any;
 }
 
 export interface LoadMoreButtonProps {
@@ -784,8 +714,7 @@ export interface MessageNotificationProps {
   showNotification: boolean;
   onClick: React.MouseEventHandler;
 }
-export interface MessageRepliesCountButtonProps
-  extends TranslationContextValue {
+export interface MessageRepliesCountButtonProps extends TranslationContextValue {
   labelSingle: string;
   labelPlural: string;
   reply_count: number;
@@ -818,55 +747,31 @@ export interface TooltipProps {}
 export const AttachmentActions: React.FC<AttachmentActionsProps>;
 export class Audio extends React.PureComponent<AudioProps, any> {}
 export class Card extends React.PureComponent<CardProps, any> {}
-export class ChatAutoComplete extends React.PureComponent<
-  ChatAutoCompleteProps,
-  any
-> {}
+export class ChatAutoComplete extends React.PureComponent<ChatAutoCompleteProps, any> {}
 export const ChatDown: React.FC<ChatDownProps>;
 export const CommandItem: React.FC<CommandItemProps>;
 export const UserItem: React.FC<UserItemProps>;
 export const DateSeparator: React.FC<DateSeparatorProps>;
-export class EditMessageForm extends React.PureComponent<
-  EditMessageFormProps,
-  any
-> {}
+export class EditMessageForm extends React.PureComponent<EditMessageFormProps, any> {}
 export const EmoticonItem: React.FC<EmoticonItemProps>;
 export const EmptyStateIndicator: React.FC<EmptyStateIndicatorProps>;
-export class EventComponent extends React.PureComponent<
-  EventComponentProps,
-  any
-> {}
+export class EventComponent extends React.PureComponent<EventComponentProps, any> {}
 export class Gallery extends React.PureComponent<GalleryProps, any> {}
 export class Image extends React.PureComponent<ImageProps, any> {}
-export class InfiniteScroll extends React.PureComponent<
-  InfiniteScrollProps,
-  any
-> {}
+export class InfiniteScroll extends React.PureComponent<InfiniteScrollProps, any> {}
 
 export const LoadMoreButton: React.FC<LoadMoreButtonProps, any>;
 export const LoadingChannels: React.FC<LoadingChannelsProps>;
 export const LoadingErrorIndicator: React.FC<LoadingErrorIndicatorProps>;
-export class MessageActions extends React.PureComponent<
-  MessageActionsProps,
-  any
-> {}
-export class MessageActionsBox extends React.PureComponent<
-  MessageActionsBoxProps,
-  any
-> {}
+export class MessageActions extends React.PureComponent<MessageActionsProps, any> {}
+export class MessageActionsBox extends React.PureComponent<MessageActionsBoxProps, any> {}
 export const MessageNotification: React.FC<MessageNotificationProps>;
 export const MessageRepliesCountButton: React.FC<MessageRepliesCountButtonProps>;
 export class Modal extends React.PureComponent<ModalProps, any> {}
-export class ReverseInfiniteScroll extends React.PureComponent<
-  ReverseInfiniteScrollProps,
-  any
-> {}
+export class ReverseInfiniteScroll extends React.PureComponent<ReverseInfiniteScrollProps, any> {}
 export class SafeAnchor extends React.PureComponent<SafeAnchorProps, any> {}
 export const SendButton: React.FC<SendButtonProps>;
-export class SimpleReactionsList extends React.PureComponent<
-  SimpleReactionsListProps,
-  any
-> {}
+export class SimpleReactionsList extends React.PureComponent<SimpleReactionsListProps, any> {}
 export const Tooltip: React.FC<TooltipProps>;
 export class Chat extends React.PureComponent<ChatProps, any> {}
 export class Channel extends React.PureComponent<ChannelProps, any> {}
@@ -875,82 +780,35 @@ export class Message extends React.PureComponent<MessageProps, any> {}
 export class MessageList extends React.PureComponent<MessageListProps, any> {}
 export const ChannelHeader: React.FC<ChannelHeaderProps>;
 export class MessageInput extends React.PureComponent<MessageInputProps, any> {}
-export class MessageInputLarge extends React.PureComponent<
-  MessageInputUIComponentProps,
-  any
-> {}
-export class MessageInputFlat extends React.PureComponent<
-  MessageInputUIComponentProps,
-  any
-> {}
-export class MessageInputSmall extends React.PureComponent<
-  MessageInputUIComponentProps,
-  any
-> {}
+export class MessageInputLarge extends React.PureComponent<MessageInputUIComponentProps, any> {}
+export class MessageInputFlat extends React.PureComponent<MessageInputUIComponentProps, any> {}
+export class MessageInputSmall extends React.PureComponent<MessageInputUIComponentProps, any> {}
 
-export class Attachment extends React.PureComponent<
-  AttachmentUIComponentProps
-> {}
+export class Attachment extends React.PureComponent<AttachmentUIComponentProps> {}
 
 export class ChannelList extends React.PureComponent<ChannelListProps> {}
-export class ChannelListMessenger extends React.PureComponent<
-  ChannelListUIComponentProps,
-  any
-> {}
-export class ChannelListTeam extends React.PureComponent<
-  ChannelListUIComponentProps,
-  any
-> {}
+export class ChannelListMessenger extends React.PureComponent<ChannelListUIComponentProps, any> {}
+export class ChannelListTeam extends React.PureComponent<ChannelListUIComponentProps, any> {}
 
-export class ChannelPreview extends React.PureComponent<
-  ChannelPreviewProps,
-  any
-> {}
+export class ChannelPreview extends React.PureComponent<ChannelPreviewProps, any> {}
 
-export class ChannelPreviewCompact extends React.PureComponent<
-  ChannelPreviewUIComponentProps,
-  any
-> {}
-export class ChannelPreviewMessenger extends React.PureComponent<
-  ChannelPreviewUIComponentProps,
-  any
-> {}
+export class ChannelPreviewCompact extends React.PureComponent<ChannelPreviewUIComponentProps, any> {}
+export class ChannelPreviewMessenger extends React.PureComponent<ChannelPreviewUIComponentProps, any> {}
 export const ChannelPreviewCountOnly: React.FC<ChannelPreviewUIComponentProps>;
-export class ChannelPreviewLastMessage extends React.PureComponent<
-  ChannelPreviewUIComponentProps,
-  any
-> {}
+export class ChannelPreviewLastMessage extends React.PureComponent<ChannelPreviewUIComponentProps, any> {}
 export const ChannelSearch: React.FC<any>;
 export const LoadMorePaginator: React.FC<LoadMorePaginatorProps>;
 export const InfiniteScrollPaginator: React.FC<InfiniteScrollPaginatorProps>;
 export const LoadingIndicator: React.FC<LoadingIndicatorProps>;
-export class MessageCommerce extends React.PureComponent<
-  MessageUIComponentProps,
-  any
-> {}
-export class MessageLivestream extends React.PureComponent<
-  MessageUIComponentProps,
-  any
-> {}
-export class MessageTeam extends React.PureComponent<
-  MessageUIComponentProps,
-  any
-> {}
-export class MessageSimple extends React.PureComponent<
-  MessageUIComponentProps,
-  any
-> {}
+export class MessageCommerce extends React.PureComponent<MessageUIComponentProps, any> {}
+export class MessageLivestream extends React.PureComponent<MessageUIComponentProps, any> {}
+export class MessageTeam extends React.PureComponent<MessageUIComponentProps, any> {}
+export class MessageSimple extends React.PureComponent<MessageUIComponentProps, any> {}
 
 export class Thread extends React.PureComponent<ThreadProps, any> {}
 export const TypingIndicator: React.FC<TypingIndicatorProps>;
-export class ReactionSelector extends React.PureComponent<
-  ReactionSelectorProps,
-  any
-> {}
-export class ReactionsList extends React.PureComponent<
-  ReactionsListProps,
-  any
-> {}
+export class ReactionSelector extends React.PureComponent<ReactionSelectorProps, any> {}
+export class ReactionsList extends React.PureComponent<ReactionsListProps, any> {}
 export const Window: React.FC<WindowProps>;
 
 /** Utils */
@@ -969,9 +827,7 @@ export interface commonEmojiInterface {
 }
 
 export const defaultMinimalEmojis: MinimalEmojiInterface[];
-export interface MinimalEmojiInterface
-  extends commonEmojiInterface,
-    emojiSetDefInterface {
+export interface MinimalEmojiInterface extends commonEmojiInterface, emojiSetDefInterface {
   id: string;
   name: string;
   colons: string;
@@ -980,22 +836,14 @@ export interface MinimalEmojiInterface
 }
 
 export function renderText(
-  message:
-    | SeamlessImmutable.Immutable<Client.MessageResponse>
-    | Client.MessageResponse,
+  message: SeamlessImmutable.Immutable<Client.MessageResponse> | Client.MessageResponse,
 ): ReactMarkdown;
 export function smartRender(
   ElementOrComponentOrLiteral: ElementOrComponentOrLiteral,
   props?: {},
   fallback?: ElementOrComponentOrLiteral,
 ): React.Component<{}, {}>;
-export type ElementOrComponentOrLiteral =
-  | string
-  | boolean
-  | number
-  | React.ElementType
-  | null
-  | undefined;
+export type ElementOrComponentOrLiteral = string | boolean | number | React.ElementType | null | undefined;
 
 /**
  * {
@@ -1023,9 +871,7 @@ export const ChatContext: React.Context<ChatContextValue>;
  *  }
  * )
  */
-export function withChatContext<T>(
-  OriginalComponent: React.ElementType<T>,
-): React.ElementType<T>;
+export function withChatContext<T>(OriginalComponent: React.ElementType<T>): React.ElementType<T>;
 
 export const ChannelContext: React.Context<ChannelContextValue>;
 
@@ -1040,15 +886,10 @@ export const ChannelContext: React.Context<ChannelContextValue>;
  *  }
  * )
  */
-export function withChannelContext<T>(
-  OriginalComponent: React.ElementType<T>,
-): React.ElementType<T>;
+export function withChannelContext<T>(OriginalComponent: React.ElementType<T>): React.ElementType<T>;
 
-declare function withTranslationContext<T>(
-  OriginalComponent: React.ElementType<T>,
-): React.ElementType<T>;
-export interface TranslationContext
-  extends React.Context<TranslationContextValue> {}
+declare function withTranslationContext<T>(OriginalComponent: React.ElementType<T>): React.ElementType<T>;
+export interface TranslationContext extends React.Context<TranslationContextValue> {}
 export interface TranslationContextValue {
   t?: i18next.TFunction;
   tDateTimeParser?(datetime: string | number): object;
@@ -1078,11 +919,7 @@ export class Streami18n {
   getAvailableLanguages(): Array<string>;
   getTranslations(): Array<string>;
   getTranslators(): Promise<Streami18nTranslators>;
-  registerTranslation(
-    key: string,
-    translation: object,
-    customDayjsLocale?: Partial<ILocale>,
-  ): void;
+  registerTranslation(key: string, translation: object, customDayjsLocale?: Partial<ILocale>): void;
   addOrUpdateLocale(key: string, config: Partial<ILocale>): void;
   setLanguage(language: string): Promise<void>;
   localeExists(language: string): boolean;

@@ -4,11 +4,7 @@ import { LoadingIndicator } from 'react-file-utils';
 
 const LoadMoreButton = ({ onClick, refreshing, children }) => (
   <div className="str-chat__load-more-button">
-    <button
-      className="str-chat__load-more-button__button"
-      onClick={onClick}
-      disabled={refreshing}
-    >
+    <button className="str-chat__load-more-button__button" onClick={onClick} disabled={refreshing}>
       {refreshing ? <LoadingIndicator /> : children}
     </button>
   </div>

@@ -65,21 +65,11 @@ class App extends Component {
             <Channel
               channel={this.channel}
               onMentionsHover={(e, user) => console.log(e, user)}
-              onMentionsClick={(e, user) => console.log(e, user)}
-            >
+              onMentionsClick={(e, user) => console.log(e, user)}>
               <Window>
                 <ChannelHeader />
-                {this.state.open && (
-                  <MessageList
-                    TypingIndicator={TypingIndicator}
-                    Message={MessageCommerce}
-                  />
-                )}
-                <MessageInput
-                  onFocus={!this.state.open ? this.toggleDemo : null}
-                  Input={MessageInputFlat}
-                  focus
-                />
+                {this.state.open && <MessageList TypingIndicator={TypingIndicator} Message={MessageCommerce} />}
+                <MessageInput onFocus={!this.state.open ? this.toggleDemo : null} Input={MessageInputFlat} focus />
               </Window>
             </Channel>
           </Chat>
@@ -93,10 +83,7 @@ class App extends Component {
 export default App;
 
 const Button = ({ open, onClick }) => (
-  <div
-    onClick={onClick}
-    className={`button ${open ? 'button--open' : 'button--closed'}`}
-  >
+  <div onClick={onClick} className={`button ${open ? 'button--open' : 'button--closed'}`}>
     {open ? (
       <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -106,10 +93,7 @@ const Button = ({ open, onClick }) => (
       </svg>
     ) : (
       <svg width="24" height="20" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M.011 20L24 10 .011 0 0 7.778 17.143 10 0 12.222z"
-          fillRule="evenodd"
-        />
+        <path d="M.011 20L24 10 .011 0 0 7.778 17.143 10 0 12.222z" fillRule="evenodd" />
       </svg>
     )}
   </div>

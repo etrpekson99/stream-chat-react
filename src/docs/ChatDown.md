@@ -8,8 +8,7 @@ import { Chat, ChatDown } from '../components';
 
 const image =
   'https://images.unsplash.com/photo-1527974349915-0d7b47258c02?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=120&q=80';
-const text =
-  'Unfortunately the network is down. Check your wifi and try again later';
+const text = 'Unfortunately the network is down. Check your wifi and try again later';
 
 <div className="str-chat">
   <Chat>

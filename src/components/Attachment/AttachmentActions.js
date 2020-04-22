@@ -16,8 +16,7 @@ const AttachmentActions = ({ text, id, actions, actionHandler }) => (
           className={`str-chat__message-attachment-actions-button str-chat__message-attachment-actions-button--${action.style}`}
           key={`${id}-${action.value}`}
           data-value={action.value}
-          onClick={() => actionHandler(action.name, action.value)}
-        >
+          onClick={() => actionHandler(action.name, action.value)}>
           {action.text}
         </button>
       ))}

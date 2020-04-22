@@ -64,8 +64,7 @@ class ChannelPreview extends PureComponent {
 
   handleEvent = (event) => {
     const channel = this.props.channel;
-    const isActive =
-      this.props.activeChannel && this.props.activeChannel.cid === channel.cid;
+    const isActive = this.props.activeChannel && this.props.activeChannel.cid === channel.cid;
     if (!isActive) {
       const unread = channel.countUnread(this.state.lastRead);
       this.setState({ lastMessage: event.message, unread });
@@ -90,8 +89,7 @@ class ChannelPreview extends PureComponent {
   getLatestMessage = () => {
     const { channel, t } = this.props;
 
-    const latestMessage =
-      channel.state.messages[channel.state.messages.length - 1];
+    const latestMessage = channel.state.messages[channel.state.messages.length - 1];
 
     if (!latestMessage) {
       return t('Nothing yet...');
@@ -120,10 +118,7 @@ class ChannelPreview extends PureComponent {
       <Preview
         {...props}
         latestMessage={this.getLatestMessage()}
-        active={
-          this.props.activeChannel &&
-          this.props.activeChannel.cid === this.props.channel.cid
-        }
+        active={this.props.activeChannel && this.props.activeChannel.cid === this.props.channel.cid}
       />
     );
   }

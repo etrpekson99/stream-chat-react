@@ -34,35 +34,20 @@ class Card extends React.PureComponent {
   trimUrl = (url) => {
     let trimmedUrl;
     if (url !== undefined && url !== null) {
-      trimmedUrl = url
-        .replace(/^(?:https?:\/\/)?(?:www\.)?/i, '')
-        .split('/')[0];
+      trimmedUrl = url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '').split('/')[0];
     }
     return trimmedUrl;
   };
 
   render() {
-    const {
-      title,
-      title_link,
-      text,
-      type,
-      image_url,
-      thumb_url,
-      og_scrape_url,
-      t,
-    } = this.props;
+    const { title, title_link, text, type, image_url, thumb_url, og_scrape_url, t } = this.props;
     const image = thumb_url || image_url;
 
     if (!title && !title_link && !image) {
       return (
-        <div
-          className={`str-chat__message-attachment-card str-chat__message-attachment-card--${type}`}
-        >
+        <div className={`str-chat__message-attachment-card str-chat__message-attachment-card--${type}`}>
           <div className="str-chat__message-attachment-card--content">
-            <div className="str-chat__message-attachment-card--text">
-              {t('this content could not be displayed')}
-            </div>
+            <div className="str-chat__message-attachment-card--text">{t('this content could not be displayed')}</div>
           </div>
         </div>
       );
@@ -73,9 +58,7 @@ class Card extends React.PureComponent {
     }
 
     return (
-      <div
-        className={`str-chat__message-attachment-card str-chat__message-attachment-card--${type}`}
-      >
+      <div className={`str-chat__message-attachment-card str-chat__message-attachment-card--${type}`}>
         {image && (
           <div className="str-chat__message-attachment-card--header">
             <img src={image} alt={image} />
@@ -83,33 +66,20 @@ class Card extends React.PureComponent {
         )}
         <div className="str-chat__message-attachment-card--content">
           <div className="str-chat__message-attachment-card--flex">
-            {title && (
-              <div className="str-chat__message-attachment-card--title">
-                {title}
-              </div>
-            )}
-            {text && (
-              <div className="str-chat__message-attachment-card--text">
-                {text}
-              </div>
-            )}
+            {title && <div className="str-chat__message-attachment-card--title">{title}</div>}
+            {text && <div className="str-chat__message-attachment-card--text">{text}</div>}
             {(title_link || og_scrape_url) && (
               <SafeAnchor
                 href={title_link || og_scrape_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="str-chat__message-attachment-card--url"
-              >
+                className="str-chat__message-attachment-card--url">
                 {this.trimUrl(title_link || og_scrape_url)}
               </SafeAnchor>
             )}
           </div>
           {type === 'giphy' && (
-            <img
-              className="str-chat__message-attachment-card__giphy-logo"
-              src={giphyLogo}
-              alt="giphy logo"
-            />
+            <img className="str-chat__message-attachment-card__giphy-logo" src={giphyLogo} alt="giphy logo" />
           )}
         </div>
       </div>

@@ -48,13 +48,8 @@ class ChannelPreviewMessenger extends PureComponent {
   };
 
   render() {
-    const unreadClass =
-      this.props.unread >= 1
-        ? 'str-chat__channel-preview-messenger--unread'
-        : '';
-    const activeClass = this.props.active
-      ? 'str-chat__channel-preview-messenger--active'
-      : '';
+    const unreadClass = this.props.unread >= 1 ? 'str-chat__channel-preview-messenger--unread' : '';
+    const activeClass = this.props.active ? 'str-chat__channel-preview-messenger--active' : '';
 
     const { channel, t } = this.props;
 
@@ -62,8 +57,7 @@ class ChannelPreviewMessenger extends PureComponent {
       <button
         onClick={this.onSelectChannel}
         ref={this.channelPreviewButton}
-        className={`str-chat__channel-preview-messenger ${unreadClass} ${activeClass}`}
-      >
+        className={`str-chat__channel-preview-messenger ${unreadClass} ${activeClass}`}>
         <div className="str-chat__channel-preview-messenger--left">
           {<Avatar image={channel.data.image} size={40} />}
         </div>

@@ -4,25 +4,13 @@ The channel header component renders some basic information about a channel:
 const data = require('./data');
 import { ChannelHeader } from '../components';
 
-<ChannelHeader
-  channel={data.channel}
-  online={23}
-  live={true}
-  {...data.translationContext}
-/>;
+<ChannelHeader channel={data.channel} online={23} live={true} {...data.translationContext} />;
 ```
 
 Example of ChannelHeader component usage:
 
 ```js
-import {
-  Chat,
-  Channel,
-  ChannelHeader,
-  MessageList,
-  MessageInput,
-  Thread,
-} from '../components';
+import { Chat, Channel, ChannelHeader, MessageList, MessageInput, Thread } from '../components';
 
 const data = require('./data');
 
@@ -52,8 +40,7 @@ const CustomChannelHeader = withChannelContext(
     render() {
       return (
         <div>
-          There are currently {this.props.watcher_count} people online in
-          channel
+          There are currently {this.props.watcher_count} people online in channel
           {this.props.channel.cid}. These users are typing:
           <span className="str-chat__input-footer--typing">
             {ChatComponents.formatArray(Object.keys(this.props.typing))}

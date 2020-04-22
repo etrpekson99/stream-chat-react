@@ -14,10 +14,5 @@ const actions = [
   { name: 'Orange', value: 'orange', style: 'danger', text: 'Orange' },
 ];
 
-<AttachmentActions
-  id={1}
-  text={'Pick a color'}
-  actions={actions}
-  actionHandler={actionHandler}
-/>;
+<AttachmentActions id={1} text={'Pick a color'} actions={actions} actionHandler={actionHandler} />;
 ```

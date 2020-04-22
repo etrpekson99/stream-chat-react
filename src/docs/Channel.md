@@ -20,14 +20,7 @@ You can test threads and replies by clicking the reply button on the message.
 
 ```js
 const data = require('./data');
-import {
-  Chat,
-  Channel,
-  ChannelHeader,
-  MessageList,
-  MessageInput,
-  Thread,
-} from '../components';
+import { Chat, Channel, ChannelHeader, MessageList, MessageInput, Thread } from '../components';
 
 <div className="str-chat" style={{ height: 'unset' }}>
   <Chat client={data.client}>

@@ -150,8 +150,7 @@ const i18n = new Streami18n({
   language: 'nl',
   translationsForLanguage: {
     'Nothing yet...': 'Nog Niet ...',
-    '{{ firstUser }} and {{ secondUser }} are typing...':
-      '{{ firstUser }} en {{ secondUser }} zijn aan het typen...',
+    '{{ firstUser }} and {{ secondUser }} are typing...': '{{ firstUser }} en {{ secondUser }} zijn aan het typen...',
   },
 });
 ```

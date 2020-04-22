@@ -4,17 +4,10 @@ import PropTypes from 'prop-types';
 import LoadMoreButton from './LoadMoreButton';
 import { smartRender } from '../../utils';
 
-const LoadMorePaginator = ({
-  reverse,
-  hasNextPage,
-  refreshing,
-  loadNextPage,
-  children,
-}) => (
+const LoadMorePaginator = ({ reverse, hasNextPage, refreshing, loadNextPage, children }) => (
   <>
     {!reverse && children}
-    {hasNextPage &&
-      smartRender(LoadMoreButton, { refreshing, onClick: loadNextPage })}
+    {hasNextPage && smartRender(LoadMoreButton, { refreshing, onClick: loadNextPage })}
     {reverse && children}
   </>
 );

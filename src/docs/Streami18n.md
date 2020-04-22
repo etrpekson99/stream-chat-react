@@ -117,8 +117,7 @@ Stream provides following list of in-built translations:
     language: 'nl',
     translationsForLanguage: {
       'Nothing yet...': 'Nog Niet ...',
-      '{{ firstUser }} and {{ secondUser }} are typing...':
-        '{{ firstUser }} en {{ secondUser }} zijn aan het typen...',
+      '{{ firstUser }} and {{ secondUser }} are typing...': '{{ firstUser }} en {{ secondUser }} zijn aan het typen...',
     },
   });
   ```
@@ -128,8 +127,7 @@ Stream provides following list of in-built translations:
   ```js static
   i18n.registerTranslation('zh', {
     'Nothing yet...': 'Nog Niet ...',
-    '{{ firstUser }} and {{ secondUser }} are typing...':
-      '{{ firstUser }} en {{ secondUser }} zijn aan het typen...',
+    '{{ firstUser }} and {{ secondUser }} are typing...': '{{ firstUser }} en {{ secondUser }} zijn aan het typen...',
   });
 
   <Chat client={chatClient} i18nInstance={i18n}>
@@ -144,8 +142,7 @@ Stream provides following list of in-built translations:
 
   i18n.registerTranslation('mr', {
     'Nothing yet...': 'काहीही नाही  ...',
-    '{{ firstUser }} and {{ secondUser }} are typing...':
-      '{{ firstUser }} आणि {{ secondUser }} टीपी करत आहेत ',
+    '{{ firstUser }} and {{ secondUser }} are typing...': '{{ firstUser }} आणि {{ secondUser }} टीपी करत आहेत ',
   });
 
   // Make sure to call setLanguage to reflect new language in UI.
@@ -320,33 +317,12 @@ The default `en` locale config from dayjs is as follow:
     "November",
     "December"
   ],
-  "monthsShort": [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ],
+  "monthsShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
   "week": {
     "dow": 0,
     "doy": 6
   },
-  "weekdays": [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ],
+  "weekdays": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
   "weekdaysMin": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
   "weekdaysShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
   "calendar": {

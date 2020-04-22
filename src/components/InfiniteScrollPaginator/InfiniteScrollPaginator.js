@@ -22,14 +22,10 @@ const InfiniteScrollPaginator = ({
     threshold={threshold}
     useWindow={false}
     loader={
-      <div
-        className="str-chat__infinite-scroll-paginator"
-        key="loadingindicator"
-      >
+      <div className="str-chat__infinite-scroll-paginator" key="loadingindicator">
         <LoadingIndicator />
       </div>
-    }
-  >
+    }>
     {children}
   </InfiniteScroll>
 );

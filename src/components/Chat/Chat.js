@@ -144,8 +144,7 @@ class Chat extends PureComponent {
           value={{
             t: this.state.t,
             tDateTimeParser: this.state.tDateTimeParser,
-          }}
-        >
+          }}>
           {this.props.children}
         </TranslationContext.Provider>
       </ChatContext.Provider>

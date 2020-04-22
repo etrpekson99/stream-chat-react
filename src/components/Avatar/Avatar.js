@@ -65,16 +65,12 @@ class Avatar extends React.PureComponent {
           flexBasis: size,
           lineHeight: size + 'px',
           fontSize: size / 2,
-        }}
-      >
+        }}>
         {image && !this.state.errored ? (
           <img
             src={image}
             alt={initials}
-            className={
-              'str-chat__avatar-image' +
-              (this.state.loaded ? ' str-chat__avatar-image--loaded' : '')
-            }
+            className={'str-chat__avatar-image' + (this.state.loaded ? ' str-chat__avatar-image--loaded' : '')}
             style={{
               width: size,
               height: size,
