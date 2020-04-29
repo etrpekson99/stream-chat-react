@@ -167,6 +167,11 @@ export interface ChannelListProps extends ChatContextValue {
     thisArg: React.Component<ChannelListProps>,
     e: Client.Event<Client.ChannelTruncatedEvent>,
   ): void;
+  onMemberAdded?(
+    thisArg: React.Component<ChannelListProps>,
+    e: Client.Event<Client.MemberAddedEvent>,
+  ): void;
+
   setActiveChannelOnMount?: boolean;
   /** Object containing query filters */
   filters: object;
