@@ -448,6 +448,8 @@ class ChannelList extends PureComponent {
         typeof this.props.onMemberAdded === 'function'
       ) {
         this.props.onMemberAdded(this, e);
+      } else {
+        console.log('something else');
       }
     }
 
