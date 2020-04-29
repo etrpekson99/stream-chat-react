@@ -133,6 +133,15 @@ class ChannelList extends PureComponent {
      * @param {Event} event       [Event object](https://getstream.io/chat/docs/#event_object) corresponding to `channel.deleted` event
      * */
     onChannelDeleted: PropTypes.func,
+
+    /**
+     * Function that overrides default behaviour when member is added. In absence of this prop, channel will be removed from the list.
+     *
+     * @param {Component} thisArg Reference to ChannelList component
+     * @param {Event} event       [Event object](https://getstream.io/chat/docs/#event_object) corresponding to `channel.deleted` event
+     * */
+    onMemberAdded: PropTypes.func,
+
     /**
      * Object containing query filters
      * @see See [Channel query documentation](https://getstream.io/chat/docs/#query_channels) for a list of available fields for filter.
@@ -431,6 +440,15 @@ class ChannelList extends PureComponent {
         typeof this.props.onChannelTruncated === 'function'
       )
         this.props.onChannelTruncated(this, e);
+    }
+
+    if (e.type === 'member.added') {
+      if (
+        this.props.onMemberAdded &&
+        typeof this.props.onMemberAdded === 'function'
+      ) {
+        this.props.onMemberAdded(this, e);
+      }
     }
 
     return null;
